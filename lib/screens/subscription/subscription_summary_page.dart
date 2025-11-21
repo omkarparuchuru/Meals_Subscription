@@ -5,7 +5,9 @@ class SubscriptionSummaryPage extends StatelessWidget {
   final String planType;
   final String dietType;
   final String duration;
+
   final int totalAmount;
+  final List<String> selectedMeals;
   final Map<String, String>? dinnerCustomization;
 
   const SubscriptionSummaryPage({
@@ -13,7 +15,9 @@ class SubscriptionSummaryPage extends StatelessWidget {
     required this.planType,
     required this.dietType,
     required this.duration,
+
     required this.totalAmount,
+    required this.selectedMeals,
     this.dinnerCustomization,
   });
 
@@ -77,6 +81,7 @@ class SubscriptionSummaryPage extends StatelessWidget {
                             duration: duration,
                             totalAmount: finalAmount,
                             subtotal: totalAmount,
+                            selectedMeals: selectedMeals,
                             dinnerCustomization: dinnerCustomization,
                           ),
                         ),
@@ -196,6 +201,8 @@ class SubscriptionSummaryPage extends StatelessWidget {
           _buildSummaryRow('Diet', dietName, isSmallScreen),
           const SizedBox(height: 12),
           _buildSummaryRow('Duration', duration, isSmallScreen),
+          const SizedBox(height: 12),
+          _buildSummaryRow('Meals Included', selectedMeals.join(', '), isSmallScreen),
           if (dinnerCustomization != null) ...[
             const SizedBox(height: 12),
             const Divider(height: 24),

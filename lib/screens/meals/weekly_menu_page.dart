@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import '../../utils/upgrade_preferences.dart';
+import '../../utils/meal_upgrade_manager.dart';
 
 class WeeklyMenuPage extends StatefulWidget {
   final bool isFromManage;
   final String? userDietType; // 'vegetarian' or 'non-vegetarian'
   final Map<String, String>? dinnerCustomization; // {'base': 'rice'/'chapathi'/'pulka', 'curry': 'curry'/'dal'/'sabzi'}
+  final List<String>? selectedMeals;
 
   const WeeklyMenuPage({
     super.key,
     this.isFromManage = false,
     this.userDietType,
     this.dinnerCustomization,
+    this.selectedMeals,
   });
 
   @override
@@ -23,6 +26,8 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
   bool _upgradedWeek = false;
   bool _upgradedMonth = false;
 
+  Map<String, List<String>> _daySpecificMeals = {};
+
   @override
   void initState() {
     super.initState();
@@ -34,6 +39,18 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
     final daySet = await UpgradePreferences.getDayUpgrades();
     final week = await UpgradePreferences.isWeekUpgraded();
     final month = await UpgradePreferences.isMonthUpgraded();
+    
+    // Load day-specific meals
+    final now = DateTime.now();
+    final days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    final baseMeals = widget.selectedMeals ?? ['Tiffin', 'Lunch', 'Dinner'];
+    final Map<String, List<String>> dayMeals = {};
+    
+    for (int i = 0; i < 7; i++) {
+      final date = now.add(Duration(days: i));
+      final day = days[(now.weekday + i - 1) % 7];
+      dayMeals[day] = await MealUpgradeManager.getMealsForDate(date, baseMeals);
+    }
 
     if (!mounted) return;
     setState(() {
@@ -41,6 +58,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
       _upgradedDays = daySet;
       _upgradedWeek = week;
       _upgradedMonth = month;
+      _daySpecificMeals = dayMeals;
     });
   }
 
@@ -57,12 +75,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
           children: [
             // Header
             if (!widget.isFromManage) _buildHeader(isSmallScreen, context),
-            // Upgrade Banner (if from Manage Meals and vegetarian subscription)
-            if (widget.isFromManage &&
-                widget.userDietType == 'vegetarian' &&
-                !_upgradedWeek &&
-                !_upgradedMonth)
-              _buildUpgradeBanner(isSmallScreen),
+            // Upgrade Banner removed - use dedicated Upgrade page instead
             // Content
             Expanded(
               child: SingleChildScrollView(
@@ -336,41 +349,49 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
       return '$baseText, $curryText, Raita';
     }
     
+    // Return all meals without filtering - filtering happens in _buildDayMenu
     if (isVegetarian) {
       return [
         {'day': 'Monday', 'meals': [
           {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Idli & Coconut Chutney', 'time': '7:00 - 9:00 AM'},
           {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Rice, Dal Tadka, Aloo Gobi', 'time': '12:00 - 2:00 PM'},
+          {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Samosa & Tea', 'time': '4:00 - 5:00 PM'},
           {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, true), 'time': '7:00 - 9:00 PM'},
         ]},
         {'day': 'Tuesday', 'meals': [
           {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Dosa & Sambar', 'time': '7:00 - 9:00 AM'},
           {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Rice, Kadhi Pakora, Aloo Fry', 'time': '12:00 - 2:00 PM'},
+          {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Biscuits & Tea', 'time': '4:00 - 5:00 PM'},
           {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, true), 'time': '7:00 - 9:00 PM'},
         ]},
         {'day': 'Wednesday', 'meals': [
           {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Upma & Tea', 'time': '7:00 - 9:00 AM'},
           {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Rice, Dal, Mixed Veg', 'time': '12:00 - 2:00 PM'},
+          {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Pakora & Tea', 'time': '4:00 - 5:00 PM'},
           {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, true), 'time': '7:00 - 9:00 PM'},
         ]},
         {'day': 'Thursday', 'meals': [
           {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Poha & Tea', 'time': '7:00 - 9:00 AM'},
           {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Rice, Sambar, Beans Fry', 'time': '12:00 - 2:00 PM'},
+          {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Sandwich & Coffee', 'time': '4:00 - 5:00 PM'},
           {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, true), 'time': '7:00 - 9:00 PM'},
         ]},
         {'day': 'Friday', 'meals': [
           {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Paratha & Curd', 'time': '7:00 - 9:00 AM'},
           {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Rice, Rajma, Aloo Sabzi', 'time': '12:00 - 2:00 PM'},
+          {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Bajji & Tea', 'time': '4:00 - 5:00 PM'},
           {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, true), 'time': '7:00 - 9:00 PM'},
         ]},
         {'day': 'Saturday', 'meals': [
           {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Aloo Paratha & Pickle', 'time': '7:00 - 9:00 AM'},
           {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Rice, Dal Fry, Mix Veg', 'time': '12:00 - 2:00 PM'},
+          {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Vada Pav & Tea', 'time': '4:00 - 5:00 PM'},
           {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, true), 'time': '7:00 - 9:00 PM'},
         ]},
         {'day': 'Sunday', 'meals': [
           {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Uttapam & Chutney', 'time': '7:00 - 9:00 AM'},
           {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Rice, Sambar, Papad', 'time': '12:00 - 2:00 PM'},
+          {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Cake & Coffee', 'time': '4:00 - 5:00 PM'},
           {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, true), 'time': '7:00 - 9:00 PM'},
         ]},
       ];
@@ -379,36 +400,43 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
         {'day': 'Monday', 'meals': [
           {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Egg Bhurji & Toast', 'time': '7:00 - 9:00 AM'},
           {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Rice, Dal Tadka, Chicken Curry', 'time': '12:00 - 2:00 PM'},
+          {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Chicken Puff & Tea', 'time': '4:00 - 5:00 PM'},
           {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, false), 'time': '7:00 - 9:00 PM'},
         ]},
         {'day': 'Tuesday', 'meals': [
           {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Chicken Sandwich', 'time': '7:00 - 9:00 AM'},
           {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Rice, Fish Curry, Aloo Fry', 'time': '12:00 - 2:00 PM'},
+          {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Egg Roll', 'time': '4:00 - 5:00 PM'},
           {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, false), 'time': '7:00 - 9:00 PM'},
         ]},
         {'day': 'Wednesday', 'meals': [
           {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Omelette & Bread', 'time': '7:00 - 9:00 AM'},
           {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Rice, Prawn Curry, Mixed Veg', 'time': '12:00 - 2:00 PM'},
+          {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Chicken Nuggets', 'time': '4:00 - 5:00 PM'},
           {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, false), 'time': '7:00 - 9:00 PM'},
         ]},
         {'day': 'Thursday', 'meals': [
           {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Egg Paratha', 'time': '7:00 - 9:00 AM'},
           {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Rice, Chicken Curry, Aloo Fry', 'time': '12:00 - 2:00 PM'},
+          {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Chicken Momos', 'time': '4:00 - 5:00 PM'},
           {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, false), 'time': '7:00 - 9:00 PM'},
         ]},
         {'day': 'Friday', 'meals': [
           {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Chicken Paratha', 'time': '7:00 - 9:00 AM'},
           {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Rice, Mutton Curry, Mix Veg', 'time': '12:00 - 2:00 PM'},
+          {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Fish Finger', 'time': '4:00 - 5:00 PM'},
           {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, false), 'time': '7:00 - 9:00 PM'},
         ]},
         {'day': 'Saturday', 'meals': [
           {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Egg Bhurji Paratha', 'time': '7:00 - 9:00 AM'},
           {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Rice, Chicken Biryani, Raita', 'time': '12:00 - 2:00 PM'},
+          {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Chicken Popcorn', 'time': '4:00 - 5:00 PM'},
           {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, false), 'time': '7:00 - 9:00 PM'},
         ]},
         {'day': 'Sunday', 'meals': [
           {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Omelette & Toast', 'time': '7:00 - 9:00 AM'},
           {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Rice, Fish Curry, Papad', 'time': '12:00 - 2:00 PM'},
+          {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Chicken Burger', 'time': '4:00 - 5:00 PM'},
           {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, false), 'time': '7:00 - 9:00 PM'},
         ]},
       ];
@@ -436,6 +464,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
       return '$baseText, $curryText, Salad';
     }
 
+    // Return all meals without filtering
     if (isVegetarian) {
       return [
         {
@@ -443,6 +472,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
           'meals': [
             {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Ragi Dosa & Peanut Chutney', 'time': '7:00 - 9:00 AM'},
             {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Jeera Rice, Dal Makhani, Stir-fried Veggies', 'time': '12:00 - 2:00 PM'},
+            {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Dhokla', 'time': '4:00 - 5:00 PM'},
             {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, true), 'time': '7:00 - 9:00 PM'},
           ]
         },
@@ -451,6 +481,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
           'meals': [
             {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Moong Dal Chilla & Mint Chutney', 'time': '7:00 - 9:00 AM'},
             {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Veg Pulao, Raita, Aloo Capsicum', 'time': '12:00 - 2:00 PM'},
+            {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Kachori', 'time': '4:00 - 5:00 PM'},
             {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, true), 'time': '7:00 - 9:00 PM'},
           ]
         },
@@ -459,6 +490,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
           'meals': [
             {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Sabudana Khichdi & Curd', 'time': '7:00 - 9:00 AM'},
             {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Veg Biryani, Mirchi Salan, Salad', 'time': '12:00 - 2:00 PM'},
+            {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Pani Puri', 'time': '4:00 - 5:00 PM'},
             {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, true), 'time': '7:00 - 9:00 PM'},
           ]
         },
@@ -467,6 +499,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
           'meals': [
             {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Aloo Puri & Pickle', 'time': '7:00 - 9:00 AM'},
             {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Curd Rice, Veg Fryums, Tomato Dal', 'time': '12:00 - 2:00 PM'},
+            {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Samosa', 'time': '4:00 - 5:00 PM'},
             {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, true), 'time': '7:00 - 9:00 PM'},
           ]
         },
@@ -475,6 +508,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
           'meals': [
             {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Masala Idli Bowl', 'time': '7:00 - 9:00 AM'},
             {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Veg Thali: Rice, Dal, Paneer Curry, Veg Fry', 'time': '12:00 - 2:00 PM'},
+            {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Bhel Puri', 'time': '4:00 - 5:00 PM'},
             {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, true), 'time': '7:00 - 9:00 PM'},
           ]
         },
@@ -483,6 +517,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
           'meals': [
             {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Paneer Stuffed Paratha', 'time': '7:00 - 9:00 AM'},
             {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Lemon Rice, Veg Kurma, Salad', 'time': '12:00 - 2:00 PM'},
+            {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Aloo Tikki', 'time': '4:00 - 5:00 PM'},
             {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, true), 'time': '7:00 - 9:00 PM'},
           ]
         },
@@ -491,6 +526,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
           'meals': [
             {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Mini Uttapam Platter', 'time': '7:00 - 9:00 AM'},
             {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Veg Fried Rice, Manchurian, Kimchi Salad', 'time': '12:00 - 2:00 PM'},
+            {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Pav Bhaji', 'time': '4:00 - 5:00 PM'},
             {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, true), 'time': '7:00 - 9:00 PM'},
           ]
         },
@@ -502,6 +538,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
           'meals': [
             {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Chicken Keema Sandwich', 'time': '7:00 - 9:00 AM'},
             {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Chicken Pulao, Raita, Salad', 'time': '12:00 - 2:00 PM'},
+            {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Chicken Cutlet', 'time': '4:00 - 5:00 PM'},
             {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, false), 'time': '7:00 - 9:00 PM'},
           ]
         },
@@ -510,6 +547,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
           'meals': [
             {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Egg Wrap & Mint Dip', 'time': '7:00 - 9:00 AM'},
             {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Mutton Curry, Steamed Rice, Aloo Fry', 'time': '12:00 - 2:00 PM'},
+            {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Chicken Roll', 'time': '4:00 - 5:00 PM'},
             {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, false), 'time': '7:00 - 9:00 PM'},
           ]
         },
@@ -518,6 +556,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
           'meals': [
             {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Chicken Poha', 'time': '7:00 - 9:00 AM'},
             {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Fish Curry, Brown Rice, Veg Poriyal', 'time': '12:00 - 2:00 PM'},
+            {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Chicken Wings', 'time': '4:00 - 5:00 PM'},
             {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, false), 'time': '7:00 - 9:00 PM'},
           ]
         },
@@ -526,6 +565,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
           'meals': [
             {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Egg White Omelette', 'time': '7:00 - 9:00 AM'},
             {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Prawn Masala, Rice, Veg Salad', 'time': '12:00 - 2:00 PM'},
+            {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Chicken Sandwich', 'time': '4:00 - 5:00 PM'},
             {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, false), 'time': '7:00 - 9:00 PM'},
           ]
         },
@@ -534,6 +574,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
           'meals': [
             {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Chicken Sausage Roll', 'time': '7:00 - 9:00 AM'},
             {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Hyderabadi Chicken Biryani, Raita, Mirchi Ka Salan', 'time': '12:00 - 2:00 PM'},
+            {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Fish Fry', 'time': '4:00 - 5:00 PM'},
             {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, false), 'time': '7:00 - 9:00 PM'},
           ]
         },
@@ -542,6 +583,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
           'meals': [
             {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Grilled Chicken Sandwich', 'time': '7:00 - 9:00 AM'},
             {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Lemon Rice, Pepper Chicken, Veg Stir Fry', 'time': '12:00 - 2:00 PM'},
+            {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Chicken 65', 'time': '4:00 - 5:00 PM'},
             {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, false), 'time': '7:00 - 9:00 PM'},
           ]
         },
@@ -550,6 +592,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
           'meals': [
             {'type': 'Tiffin', 'icon': Icons.wb_sunny, 'dish': 'Chicken Waffles & Maple Syrup', 'time': '7:00 - 9:00 AM'},
             {'type': 'Lunch', 'icon': Icons.wb_cloudy, 'dish': 'Seafood Platter: Rice, Fish Curry, Prawn Fry', 'time': '12:00 - 2:00 PM'},
+            {'type': 'Snacks', 'icon': Icons.bakery_dining, 'dish': 'Chicken Burger', 'time': '4:00 - 5:00 PM'},
             {'type': 'Dinner', 'icon': Icons.nightlight_round, 'dish': getDinnerDish(dinnerBase, dinnerCurry, false), 'time': '7:00 - 9:00 PM'},
           ]
         },
@@ -625,6 +668,19 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
             final baseMeal = baseMeals[index];
             final altMeal = altMeals[index];
             final mealType = baseMeal['type'] as String;
+            
+            // Check visibility based on day-specific meals
+            bool isVisible = false;
+            if (_daySpecificMeals.isNotEmpty) {
+              // Use loaded day-specific meals
+              isVisible = _daySpecificMeals[day]?.contains(mealType) ?? false;
+            } else {
+              // Fallback to global selection if day-specific not loaded yet
+              isVisible = widget.selectedMeals?.contains(mealType) ?? false;
+            }
+            
+            if (!isVisible) return const SizedBox.shrink();
+
             final mealKey = _mealPreferenceKey(day, mealType);
             final bool mealUpgraded =
                 dayUpgraded || _upgradedMealKeys.contains(mealKey);

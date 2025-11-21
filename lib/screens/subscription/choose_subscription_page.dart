@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'select_diet_page.dart';
+import '../../utils/meal_pricing.dart';
 
 class ChooseSubscriptionPage extends StatefulWidget {
+  final List<String> selectedMeals;
   final Map<String, String>? dinnerCustomization;
 
   const ChooseSubscriptionPage({
     super.key,
+    required this.selectedMeals,
     this.dinnerCustomization,
   });
 
@@ -49,8 +52,8 @@ class _ChooseSubscriptionPageState extends State<ChooseSubscriptionPage> {
                         iconColor: const Color(0xFF2196F3),
                         title: 'Hostel Plan',
                         description:
-                            'Perfect for students living in hostels. Includes 3 meals daily with balanced nutrition.',
-                        price: '₹2,999/month',
+                            'Perfect for students living in hostels. Includes balanced nutrition.',
+                        price: '₹${MealPricing.calculateBasePrice(selectedMeals: widget.selectedMeals, planType: 'hostel').toInt()}/month',
                         isSelected: selectedPlan == 'hostel',
                         onTap: () => setState(() => selectedPlan = 'hostel'),
                         isSmallScreen: isSmallScreen,
@@ -61,8 +64,8 @@ class _ChooseSubscriptionPageState extends State<ChooseSubscriptionPage> {
                         iconColor: const Color(0xFF9C27B0),
                         title: 'Employee Plan',
                         description:
-                            'Designed for working professionals. Premium meals with varied menu and priority delivery.',
-                        price: '₹3,499/month',
+                            'Designed for working professionals. Premium meals with varied menu.',
+                        price: '₹${MealPricing.calculateBasePrice(selectedMeals: widget.selectedMeals, planType: 'employee').toInt()}/month',
                         isSelected: selectedPlan == 'employee',
                         onTap: () => setState(() => selectedPlan = 'employee'),
                         isSmallScreen: isSmallScreen,
@@ -98,7 +101,12 @@ class _ChooseSubscriptionPageState extends State<ChooseSubscriptionPage> {
                           MaterialPageRoute(
                             builder: (context) => SelectDietPage(
                               planType: selectedPlan!,
+                              selectedMeals: widget.selectedMeals,
                               dinnerCustomization: widget.dinnerCustomization,
+                              basePrice: MealPricing.calculateBasePrice(
+                                selectedMeals: widget.selectedMeals,
+                                planType: selectedPlan!,
+                              ),
                             ),
                           ),
                         );
@@ -307,11 +315,11 @@ class _ChooseSubscriptionPageState extends State<ChooseSubscriptionPage> {
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    'Starting at $price',
+                    price,
                     style: TextStyle(
-                      fontSize: isSmallScreen ? 15 : 16,
+                      fontSize: isSmallScreen ? 16 : 18,
                       fontWeight: FontWeight.bold,
-                      color: const Color(0xFF2C2C2C),
+                      color: iconColor,
                     ),
                   ),
                 ],
@@ -323,4 +331,3 @@ class _ChooseSubscriptionPageState extends State<ChooseSubscriptionPage> {
     );
   }
 }
-

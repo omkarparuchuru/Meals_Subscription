@@ -8,6 +8,7 @@ class PaymentPage extends StatefulWidget {
   final String duration;
   final int totalAmount;
   final int subtotal;
+  final List<String> selectedMeals;
   final Map<String, String>? dinnerCustomization;
 
   const PaymentPage({
@@ -16,7 +17,9 @@ class PaymentPage extends StatefulWidget {
     required this.dietType,
     required this.duration,
     required this.totalAmount,
+
     required this.subtotal,
+    required this.selectedMeals,
     this.dinnerCustomization,
   });
 
@@ -461,7 +464,7 @@ class _PaymentPageState extends State<PaymentPage> {
           const SizedBox(height: 12),
           _buildSummaryRow('Duration', widget.duration, isSmallScreen),
           const SizedBox(height: 12),
-          _buildSummaryRow('Meals Included', 'Tiffin, Lunch & Dinner', isSmallScreen),
+          _buildSummaryRow('Meals Included', widget.selectedMeals.join(', '), isSmallScreen),
           const Divider(height: 24),
           _buildSummaryRow('Subtotal', '₹${widget.subtotal.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}', isSmallScreen),
           const SizedBox(height: 8),
@@ -964,6 +967,9 @@ class _PaymentPageState extends State<PaymentPage> {
                                     await prefs.setString('dinnerBase', widget.dinnerCustomization!['base'] ?? 'rice');
                                     await prefs.setString('dinnerCurry', widget.dinnerCustomization!['curry'] ?? 'curry');
                                   }
+
+                                  // Save selected meals
+                                  await prefs.setStringList('selectedMeals', widget.selectedMeals);
                                   
                                   // Check if this is an upgrade payment
                                   final isUpgrade = widget.duration == 'Upgrade';
@@ -990,6 +996,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                             'duration': widget.duration,
                                             'days': days,
                                             'dinnerCustomization': widget.dinnerCustomization,
+                                            'selectedMeals': widget.selectedMeals,
                                           },
                                         ),
                                       ),

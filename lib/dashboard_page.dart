@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login_page.dart';
-import 'screens/subscription/choose_subscription_page.dart';
+import 'screens/subscription/meal_customization_page.dart';
 import 'screens/orders/order_status_page.dart';
 import 'screens/meals/manage_meals_page.dart';
 import 'screens/meals/weekly_menu_page.dart';
@@ -36,14 +36,13 @@ class _DashboardPageState extends State<DashboardPage> {
   String? _subscriptionDietType;
   String? _subscriptionDuration;
   DateTime? _subscriptionEndDate;
-  int _daysRemaining = 0;
-  
-  // Sample orders data
+  int? _daysRemaining;
+
   final List<Map<String, dynamic>> _todayOrders = [
     {
       'meal': 'Tiffin',
       'status': 'Delivered',
-      'time': '8:30 AM',
+      'time': 'Delivered at 8:30 AM',
       'icon': Icons.wb_sunny,
       'iconColor': Colors.orange,
     },
@@ -68,6 +67,7 @@ class _DashboardPageState extends State<DashboardPage> {
   String? _storedAddress;
   String? _storedLandmark;
   Map<String, String>? _dinnerCustomization;
+  List<String> _selectedMeals = ['Tiffin', 'Lunch', 'Dinner']; // Default to all
 
   @override
   void initState() {
@@ -105,6 +105,10 @@ class _DashboardPageState extends State<DashboardPage> {
           await prefs.setString('dinnerBase', _dinnerCustomization!['base'] ?? 'rice');
           await prefs.setString('dinnerCurry', _dinnerCustomization!['curry'] ?? 'curry');
         }
+        if (args['selectedMeals'] != null) {
+          _selectedMeals = List<String>.from(args['selectedMeals']);
+          await prefs.setStringList('selectedMeals', _selectedMeals);
+        }
         _updateSubscriptionData(
           planType: args['planType'] ?? 'employee',
           dietType: args['dietType'] ?? 'non-vegetarian',
@@ -126,6 +130,8 @@ class _DashboardPageState extends State<DashboardPage> {
         final storedLandmark = prefs.getString('landmark');
         final dinnerBase = prefs.getString('dinnerBase');
         final dinnerCurry = prefs.getString('dinnerCurry');
+        final storedMeals = prefs.getStringList('selectedMeals');
+        
         setState(() {
           _storedUserName = storedName ?? widget.userName;
           _storedProfileImagePath = storedImage ?? widget.profileImagePath;
@@ -133,6 +139,9 @@ class _DashboardPageState extends State<DashboardPage> {
           _storedLandmark = storedLandmark ?? widget.landmark;
           if (dinnerBase != null && dinnerCurry != null) {
             _dinnerCustomization = {'base': dinnerBase, 'curry': dinnerCurry};
+          }
+          if (storedMeals != null) {
+            _selectedMeals = storedMeals;
           }
         });
       }
@@ -615,7 +624,7 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
           ),
           const SizedBox(height: 16),
-          ..._todayOrders.map((order) => Padding(
+          ..._todayOrders.where((order) => _selectedMeals.contains(order['meal'])).map((order) => Padding(
                 padding: const EdgeInsets.only(bottom: 12),
                 child: _buildOrderItem(
                   meal: order['meal'] as String,
@@ -1207,7 +1216,7 @@ class _DashboardPageState extends State<DashboardPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const ChooseSubscriptionPage(),
+        builder: (context) => const MealCustomizationPage(),
       ),
     );
   }
@@ -1233,19 +1242,27 @@ class _DashboardPageState extends State<DashboardPage> {
           dinnerCustomization: (dinnerBase != null && dinnerCurry != null)
               ? {'base': dinnerBase, 'curry': dinnerCurry}
               : null,
+          selectedMeals: _selectedMeals,
         ),
       ),
     );
   }
 
-  void _handleUpgradeNavigation() {
+  void _handleUpgradeNavigation() async {
+    final prefs = await SharedPreferences.getInstance();
+    final dinnerBase = prefs.getString('dinnerBase');
+    final dinnerCurry = prefs.getString('dinnerCurry');
+    
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => UpgradeMealPage(
           planType: _subscriptionPlanType ?? 'employee',
-          currentDiet: _subscriptionDietType ?? 'vegetarian',
-          dinnerCustomization: _dinnerCustomization,
+          dietType: _subscriptionDietType ?? 'vegetarian',
+          currentMeals: _selectedMeals,
+          dinnerCustomization: (dinnerBase != null && dinnerCurry != null)
+              ? {'base': dinnerBase, 'curry': dinnerCurry}
+              : null,
         ),
       ),
     ).then((upgraded) async {
@@ -1263,6 +1280,9 @@ class _DashboardPageState extends State<DashboardPage> {
     final prefs = await SharedPreferences.getInstance();
     final dinnerBase = prefs.getString('dinnerBase');
     final dinnerCurry = prefs.getString('dinnerCurry');
+    
+    if (!mounted) return;
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -1272,13 +1292,11 @@ class _DashboardPageState extends State<DashboardPage> {
           dinnerCustomization: (dinnerBase != null && dinnerCurry != null)
               ? {'base': dinnerBase, 'curry': dinnerCurry}
               : null,
+          selectedMeals: _selectedMeals,
         ),
       ),
     );
   }
-
-
-  // Removed _handleSettings - no longer used
 
   void _handleCustomerSupport() {
     Navigator.push(

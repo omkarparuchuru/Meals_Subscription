@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'subscription_summary_page.dart';
+import '../../utils/meal_pricing.dart';
 
 class SelectDurationPage extends StatefulWidget {
   final String planType;
   final String dietType;
+  final List<String> selectedMeals;
   final Map<String, String>? dinnerCustomization;
+  final double basePrice;
 
   const SelectDurationPage({
     super.key,
     required this.planType,
     required this.dietType,
+    required this.selectedMeals,
     this.dinnerCustomization,
+    required this.basePrice,
   });
 
   @override
@@ -45,15 +50,8 @@ class _SelectDurationPageState extends State<SelectDurationPage> {
   @override
   void initState() {
     super.initState();
-    // Adjust prices based on plan type
-    if (widget.planType == 'hostel') {
-      durationData = {
-        '1 Month': {'total': 2999, 'perMonth': 2999, 'save': 0},
-        '3 Months': {'total': 8499, 'perMonth': 2833, 'save': 498},
-        '6 Months': {'total': 16499, 'perMonth': 2750, 'save': 1995},
-        '1 Year': {'total': 31499, 'perMonth': 2625, 'save': 5989},
-      };
-    }
+    // Calculate prices based on basePrice
+    durationData = MealPricing.getDurationPricing(widget.basePrice);
   }
 
   @override
@@ -137,6 +135,7 @@ class _SelectDurationPageState extends State<SelectDurationPage> {
                               dietType: widget.dietType,
                               duration: selectedDuration!,
                               totalAmount: durationData[selectedDuration!]!['total'] as int,
+                              selectedMeals: widget.selectedMeals,
                               dinnerCustomization: widget.dinnerCustomization,
                             ),
                           ),

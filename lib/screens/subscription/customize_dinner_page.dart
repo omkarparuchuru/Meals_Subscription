@@ -7,7 +7,9 @@ class CustomizeDinnerPage extends StatefulWidget {
   final String? dietType;
   final String? duration;
   final int? totalAmount;
+  final List<String>? selectedMeals;
   final Map<String, String>? dinnerCustomization; // For when coming from later in flow
+  final double basePrice;
 
   const CustomizeDinnerPage({
     super.key,
@@ -15,7 +17,9 @@ class CustomizeDinnerPage extends StatefulWidget {
     this.dietType,
     this.duration,
     this.totalAmount,
+    this.selectedMeals,
     this.dinnerCustomization,
+    required this.basePrice,
   });
 
   @override
@@ -83,11 +87,14 @@ class _CustomizeDinnerPageState extends State<CustomizeDinnerPage> {
                       const SizedBox(height: 16),
                       _buildBaseOptionCard(
                         title: 'Rice',
-                        description: 'Steamed basmati rice',
+                        description: 'Steamed basmati rice (No curry needed)',
                         icon: Icons.rice_bowl,
                         value: 'rice',
                         isSelected: selectedRiceOption == 'rice',
-                        onTap: () => setState(() => selectedRiceOption = 'rice'),
+                        onTap: () => setState(() {
+                          selectedRiceOption = 'rice';
+                          selectedCurryOption = null; // Rice doesn't need curry
+                        }),
                         isSmallScreen: isSmallScreen,
                       ),
                       const SizedBox(height: 12),
@@ -111,55 +118,57 @@ class _CustomizeDinnerPageState extends State<CustomizeDinnerPage> {
                         isSmallScreen: isSmallScreen,
                       ),
                       const SizedBox(height: 32),
-                      // Curry Selection
-                      Text(
-                        'Choose Your Curry:',
-                        style: TextStyle(
-                          fontSize: isSmallScreen ? 16 : 18,
-                          fontWeight: FontWeight.bold,
-                          color: const Color(0xFF2C2C2C),
+                      // Curry Selection - Only show if chapathi or pulka selected
+                      if (selectedRiceOption != null && selectedRiceOption != 'rice') ...[
+                        Text(
+                          'Choose Your Curry:',
+                          style: TextStyle(
+                            fontSize: isSmallScreen ? 16 : 18,
+                            fontWeight: FontWeight.bold,
+                            color: const Color(0xFF2C2C2C),
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 16),
-                      _buildCurryOptionCard(
-                        title: 'Curry',
-                        description: widget.dietType == 'vegetarian'
-                            ? 'Mixed vegetable curry'
-                            : 'Chicken/Vegetable curry',
-                        icon: Icons.soup_kitchen,
-                        value: 'curry',
-                        isSelected: selectedCurryOption == 'curry',
-                        onTap: () => setState(() => selectedCurryOption = 'curry'),
-                        isSmallScreen: isSmallScreen,
-                      ),
-                      const SizedBox(height: 12),
-                      _buildCurryOptionCard(
-                        title: 'Dal',
-                        description: 'Lentil curry (Dal Tadka/Masoor Dal)',
-                        icon: Icons.restaurant_menu,
-                        value: 'dal',
-                        isSelected: selectedCurryOption == 'dal',
-                        onTap: () => setState(() => selectedCurryOption = 'dal'),
-                        isSmallScreen: isSmallScreen,
-                      ),
-                      const SizedBox(height: 12),
-                      _buildCurryOptionCard(
-                        title: 'Sabzi',
-                        description: 'Dry vegetable preparation',
-                        icon: Icons.local_dining,
-                        value: 'sabzi',
-                        isSelected: selectedCurryOption == 'sabzi',
-                        onTap: () => setState(() => selectedCurryOption = 'sabzi'),
-                        isSmallScreen: isSmallScreen,
-                      ),
+                        const SizedBox(height: 16),
+                        _buildCurryOptionCard(
+                          title: 'Curry',
+                          description: widget.dietType == 'vegetarian'
+                              ? 'Mixed vegetable curry'
+                              : 'Chicken/Vegetable curry',
+                          icon: Icons.soup_kitchen,
+                          value: 'curry',
+                          isSelected: selectedCurryOption == 'curry',
+                          onTap: () => setState(() => selectedCurryOption = 'curry'),
+                          isSmallScreen: isSmallScreen,
+                        ),
+                        const SizedBox(height: 12),
+                        _buildCurryOptionCard(
+                          title: 'Dal',
+                          description: 'Lentil curry (Dal Tadka/Masoor Dal)',
+                          icon: Icons.restaurant_menu,
+                          value: 'dal',
+                          isSelected: selectedCurryOption == 'dal',
+                          onTap: () => setState(() => selectedCurryOption = 'dal'),
+                          isSmallScreen: isSmallScreen,
+                        ),
+                        const SizedBox(height: 12),
+                        _buildCurryOptionCard(
+                          title: 'Sabzi',
+                          description: 'Dry vegetable preparation',
+                          icon: Icons.local_dining,
+                          value: 'sabzi',
+                          isSelected: selectedCurryOption == 'sabzi',
+                          onTap: () => setState(() => selectedCurryOption = 'sabzi'),
+                          isSmallScreen: isSmallScreen,
+                        ),
+                      ],
                       const SizedBox(height: 40),
                     ],
                   ),
                 ),
               ),
             ),
-            // Continue Button
-            if (selectedRiceOption != null && selectedCurryOption != null)
+            // Continue Button - Show if rice selected OR if chapathi/pulka with curry selected
+            if (selectedRiceOption == 'rice' || (selectedRiceOption != null && selectedCurryOption != null))
               Container(
                 padding: EdgeInsets.all(isSmallScreen ? 16 : 24),
                 decoration: BoxDecoration(
@@ -180,7 +189,7 @@ class _CustomizeDinnerPageState extends State<CustomizeDinnerPage> {
                       onPressed: () {
                         final customization = {
                           'base': selectedRiceOption!,
-                          'curry': selectedCurryOption!,
+                          if (selectedCurryOption != null) 'curry': selectedCurryOption!,
                         };
                         
                         if (widget.duration == null) {
@@ -192,6 +201,8 @@ class _CustomizeDinnerPageState extends State<CustomizeDinnerPage> {
                                 planType: widget.planType!,
                                 dietType: widget.dietType!,
                                 dinnerCustomization: customization,
+                                selectedMeals: widget.selectedMeals!,
+                                basePrice: widget.basePrice,
                               ),
                             ),
                           );
@@ -206,6 +217,7 @@ class _CustomizeDinnerPageState extends State<CustomizeDinnerPage> {
                                 duration: widget.duration!,
                                 totalAmount: widget.totalAmount!,
                                 dinnerCustomization: customization,
+                                selectedMeals: widget.selectedMeals!,
                               ),
                             ),
                           );

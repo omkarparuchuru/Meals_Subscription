@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../utils/meal_upgrade_manager.dart';
 import '../meals/weekly_menu_page.dart';
 import '../settings/delivery_settings_page.dart';
 
 class ManageMealsPage extends StatefulWidget {
   final String? userDietType;
   final Map<String, String>? dinnerCustomization;
+  final List<String>? selectedMeals;
 
   const ManageMealsPage({
     super.key,
     this.userDietType,
     this.dinnerCustomization,
+    this.selectedMeals,
   });
 
   @override
@@ -21,6 +25,11 @@ class _ManageMealsPageState extends State<ManageMealsPage> with SingleTickerProv
   
   // Store meal states per day: {day: {meal: {enabled: bool, time: String, address: String}}}
   final Map<String, Map<String, Map<String, dynamic>>> _mealStates = {};
+
+  // Track current meals and diet type
+  List<String> _currentMeals = [];
+  String? _currentDietType;
+  Map<String, String>? _currentDinnerCustomization;
   
   // Default times and address
   final Map<String, String> _defaultTimes = {
@@ -35,20 +44,55 @@ class _ManageMealsPageState extends State<ManageMealsPage> with SingleTickerProv
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    _initializeMealStates();
+    _loadMealData();
+  }
+
+  Future<void> _loadMealData() async {
+    final prefs = await SharedPreferences.getInstance();
+    
+    if (mounted) {
+      // Load current base meals from SharedPreferences
+      final baseMeals = prefs.getStringList('selectedMeals') ?? widget.selectedMeals ?? ['Tiffin', 'Lunch', 'Dinner'];
+      
+      setState(() {
+        _currentMeals = baseMeals;
+        _currentDietType = widget.userDietType;
+        _currentDinnerCustomization = widget.dinnerCustomization;
+        
+        // Load dinner customization if available
+        final dinnerBase = prefs.getString('dinnerBase');
+        final dinnerCurry = prefs.getString('dinnerCurry');
+        if (dinnerBase != null && dinnerCurry != null) {
+          _currentDinnerCustomization = {'base': dinnerBase, 'curry': dinnerCurry};
+        }
+      });
+      
+      await _initializeMealStates(baseMeals);
+    }
   }
   
-  void _initializeMealStates() {
+  Future<void> _initializeMealStates(List<String> baseMeals) async {
     final now = DateTime.now();
     final days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     
     for (int i = 0; i < 7; i++) {
+      final date = now.add(Duration(days: i));
       final day = days[(now.weekday + i - 1) % 7];
-      _mealStates[day] = {
-        'Tiffin': {'enabled': true, 'time': _defaultTimes['Tiffin']!, 'address': _defaultAddress},
-        'Lunch': {'enabled': true, 'time': _defaultTimes['Lunch']!, 'address': _defaultAddress},
-        'Dinner': {'enabled': true, 'time': _defaultTimes['Dinner']!, 'address': _defaultAddress},
-      };
+      
+      // Get meals for this specific date (base + added)
+      final mealsForDay = await MealUpgradeManager.getMealsForDate(date, baseMeals);
+      
+      setState(() {
+        _mealStates[day] = {};
+        
+        for (final meal in mealsForDay) {
+          _mealStates[day]![meal] = {
+            'enabled': true,
+            'time': _defaultTimes[meal] ?? '12:00 PM',
+            'address': _defaultAddress
+          };
+        }
+      });
     }
   }
   
@@ -118,9 +162,9 @@ class _ManageMealsPageState extends State<ManageMealsPage> with SingleTickerProv
   void _pauseAllMealsForDay(String day) {
     setState(() {
       if (_mealStates[day] != null) {
-        _mealStates[day]!['Tiffin']?['enabled'] = false;
-        _mealStates[day]!['Lunch']?['enabled'] = false;
-        _mealStates[day]!['Dinner']?['enabled'] = false;
+        for (var meal in _mealStates[day]!.keys) {
+           _mealStates[day]![meal]?['enabled'] = false;
+        }
       }
     });
   }
@@ -155,10 +199,15 @@ class _ManageMealsPageState extends State<ManageMealsPage> with SingleTickerProv
                   _buildScheduleTab(isSmallScreen),
                   WeeklyMenuPage(
                     isFromManage: true,
-                    userDietType: widget.userDietType ?? 'vegetarian',
-                    dinnerCustomization: widget.dinnerCustomization,
+                    userDietType: _currentDietType ?? 'vegetarian',
+                    dinnerCustomization: _currentDinnerCustomization,
+                    selectedMeals: _currentMeals,
                   ),
-                  DeliverySettingsPage(),
+                  DeliverySettingsPage(
+                    selectedMeals: _currentMeals,
+                    userDietType: _currentDietType,
+                    dinnerCustomization: _currentDinnerCustomization,
+                  ),
                 ],
               ),
             ),
@@ -404,11 +453,19 @@ class _ManageMealsPageState extends State<ManageMealsPage> with SingleTickerProv
             ),
           ),
           const SizedBox(height: 16),
-          _buildMealToggle(day, 'Tiffin', !isToday && canModify, isSmallScreen),
-          const SizedBox(height: 12),
-          _buildMealToggle(day, 'Lunch', !isToday && canModify, isSmallScreen),
-          const SizedBox(height: 12),
-          _buildMealToggle(day, 'Dinner', !isToday && canModify, isSmallScreen),
+          ...((_mealStates[day]?.keys.toList() ?? [])
+                ..sort((a, b) {
+                  final order = {'Tiffin': 0, 'Lunch': 1, 'Snacks': 2, 'Dinner': 3};
+                  return (order[a] ?? 99).compareTo(order[b] ?? 99);
+                }))
+              .map((meal) {
+            return Column(
+              children: [
+                _buildMealToggle(day, meal, !isToday && canModify, isSmallScreen),
+                const SizedBox(height: 12),
+              ],
+            );
+          }),
         ],
       ),
     );

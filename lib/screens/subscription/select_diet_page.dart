@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'customize_dinner_page.dart';
+import 'select_duration_page.dart';
 
 class SelectDietPage extends StatefulWidget {
   final String planType;
+  final List<String> selectedMeals;
   final Map<String, String>? dinnerCustomization;
+  final double basePrice;
 
   const SelectDietPage({
     super.key,
     required this.planType,
+    required this.selectedMeals,
     this.dinnerCustomization,
+    required this.basePrice,
   });
 
   @override
@@ -94,17 +99,33 @@ class _SelectDietPageState extends State<SelectDietPage> {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CustomizeDinnerPage(
-                              planType: widget.planType,
-                              dietType: selectedDiet!,
-                              duration: null,
-                              totalAmount: null,
+                        if (widget.selectedMeals.contains('Dinner')) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CustomizeDinnerPage(
+                                planType: widget.planType,
+                                dietType: selectedDiet!,
+                                selectedMeals: widget.selectedMeals,
+                                dinnerCustomization: widget.dinnerCustomization,
+                                basePrice: widget.basePrice,
+                              ),
                             ),
-                          ),
-                        );
+                          );
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SelectDurationPage(
+                                planType: widget.planType,
+                                dietType: selectedDiet!,
+                                selectedMeals: widget.selectedMeals,
+                                dinnerCustomization: widget.dinnerCustomization,
+                                basePrice: widget.basePrice,
+                              ),
+                            ),
+                          );
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.transparent,
@@ -358,4 +379,3 @@ class _SelectDietPageState extends State<SelectDietPage> {
     );
   }
 }
-
