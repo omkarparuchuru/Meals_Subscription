@@ -113,10 +113,10 @@ class _UpgradeMealPageState extends State<UpgradeMealPage> {
           child: Column(
             children: [
               _buildHeader(isSmallScreen),
-              Expanded(
+              const Expanded(
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(24.0),
+                    padding: EdgeInsets.all(24.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -125,22 +125,22 @@ class _UpgradeMealPageState extends State<UpgradeMealPage> {
                           size: 80,
                           color: Colors.green,
                         ),
-                        const SizedBox(height: 24),
+                        SizedBox(height: 24),
                         Text(
                           'You have all meals!',
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: const Color(0xFF2C2C2C),
+                            color: Color(0xFF2C2C2C),
                           ),
                         ),
-                        const SizedBox(height: 12),
+                        SizedBox(height: 12),
                         Text(
                           'Your subscription already includes all available meals.',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 16,
-                            color: const Color(0xFF757575),
+                            color: Color(0xFF757575),
                           ),
                         ),
                       ],
@@ -229,7 +229,7 @@ class _UpgradeMealPageState extends State<UpgradeMealPage> {
           const SizedBox(height: 8),
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
               color: Colors.white,
@@ -238,7 +238,7 @@ class _UpgradeMealPageState extends State<UpgradeMealPage> {
           const SizedBox(height: 4),
           Text(
             subtitle,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14,
               color: Colors.white70,
             ),
@@ -256,7 +256,7 @@ class _UpgradeMealPageState extends State<UpgradeMealPage> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -267,7 +267,7 @@ class _UpgradeMealPageState extends State<UpgradeMealPage> {
         children: [
           Row(
             children: [
-              Icon(Icons.restaurant_menu, color: Color(0xFF4CAF50)),
+              const Icon(Icons.restaurant_menu, color: Color(0xFF4CAF50)),
               const SizedBox(width: 12),
               Text(
                 'Current Subscription',
@@ -287,7 +287,7 @@ class _UpgradeMealPageState extends State<UpgradeMealPage> {
               return Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF4CAF50).withOpacity(0.1),
+                  color: const Color(0xFF4CAF50).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: const Color(0xFF4CAF50)),
                 ),
@@ -327,7 +327,7 @@ class _UpgradeMealPageState extends State<UpgradeMealPage> {
               margin: const EdgeInsets.only(bottom: 12),
               padding: EdgeInsets.all(isSmallScreen ? 14 : 16),
               decoration: BoxDecoration(
-                color: isSelected ? const Color(0xFF4CAF50).withOpacity(0.1) : Colors.white,
+                color: isSelected ? const Color(0xFF4CAF50).withValues(alpha: 0.1) : Colors.white,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: isSelected ? const Color(0xFF4CAF50) : Colors.grey.shade300,
@@ -375,7 +375,7 @@ class _UpgradeMealPageState extends State<UpgradeMealPage> {
               ),
             ),
           );
-        }).toList(),
+        }),
       ],
     );
   }
@@ -415,7 +415,7 @@ class _UpgradeMealPageState extends State<UpgradeMealPage> {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: isSmallScreen ? 14 : 16),
         decoration: BoxDecoration(
-          color: isSelected ? color.withOpacity(0.1) : Colors.white,
+          color: isSelected ? color.withValues(alpha: 0.1) : Colors.white,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: isSelected ? color : Colors.grey.shade300,
@@ -477,7 +477,7 @@ class _UpgradeMealPageState extends State<UpgradeMealPage> {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: isSmallScreen ? 12 : 16),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF4CAF50).withOpacity(0.1) : Colors.white,
+          color: isSelected ? const Color(0xFF4CAF50).withValues(alpha: 0.1) : Colors.white,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: isSelected ? const Color(0xFF4CAF50) : Colors.grey.shade300,
@@ -564,12 +564,12 @@ class _UpgradeMealPageState extends State<UpgradeMealPage> {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            const Color(0xFF4CAF50).withOpacity(0.1),
-            const Color(0xFFFF9800).withOpacity(0.1),
+            const Color(0xFF4CAF50).withValues(alpha: 0.1),
+            const Color(0xFFFF9800).withValues(alpha: 0.1),
           ],
         ),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFF4CAF50).withOpacity(0.3)),
+        border: Border.all(color: const Color(0xFF4CAF50).withValues(alpha: 0.3)),
       ),
       child: Column(
         children: [
@@ -585,7 +585,7 @@ class _UpgradeMealPageState extends State<UpgradeMealPage> {
                 ),
               ),
               Text(
-                '₹$price',
+                'â‚¹$price',
                 style: TextStyle(
                   fontSize: isSmallScreen ? 20 : 24,
                   fontWeight: FontWeight.bold,
@@ -678,7 +678,7 @@ class _UpgradeMealPageState extends State<UpgradeMealPage> {
         MaterialPageRoute(
           builder: (context) => CustomizeDinnerPage(
             planType: widget.planType,
-            dietType: _selectedDietType, // Use the selected diet type
+            dietType: _selectedDietType,
             selectedMeals: [...widget.currentMeals, 'Dinner'],
             basePrice: (_upgradePrice[_selectedUpgradeType] as num?)?.toDouble() ?? 0.0,
           ),
@@ -713,14 +713,12 @@ class _UpgradeMealPageState extends State<UpgradeMealPage> {
 
     // If upgrading existing meal to non-veg, update the meal list
     if (widget.isUpgrade && widget.forcedMeal != null) {
-      final currentMeals = prefs.getStringList('selectedMeals') ?? [];
       // Mark this meal as non-veg upgraded
       await prefs.setString('upgraded_${widget.forcedMeal}_nonveg', 'true');
     }
 
     // If adding new meal, add it to the subscription
     if (!widget.isUpgrade && _selectedMealToAdd != null) {
-      final currentMeals = prefs.getStringList('selectedMeals') ?? [];
       // Don't add to permanent list for temporary additions
       // if (!currentMeals.contains(_selectedMealToAdd!)) {
       //   currentMeals.add(_selectedMealToAdd!);
@@ -789,3 +787,4 @@ class _UpgradeMealPageState extends State<UpgradeMealPage> {
     }
   }
 }
+

@@ -38,7 +38,7 @@ class _ManageMealsPageState extends State<ManageMealsPage> with SingleTickerProv
     'Dinner': '8:00 PM',
   };
   
-  String _defaultAddress = '123 Main Street, Apartment 4B, Near Central Park';
+  final String _defaultAddress = '123 Main Street, Apartment 4B, Near Central Park';
 
   @override
   void initState() {
@@ -266,7 +266,7 @@ class _ManageMealsPageState extends State<ManageMealsPage> with SingleTickerProv
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(20),
             ),
             child: const Row(
@@ -298,7 +298,7 @@ class _ManageMealsPageState extends State<ManageMealsPage> with SingleTickerProv
         color: const Color(0xFFFFF3E0),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: const Color(0xFFFF9800).withOpacity(0.3),
+          color: const Color(0xFFFF9800).withValues(alpha: 0.3),
         ),
       ),
       child: Row(
@@ -399,7 +399,7 @@ class _ManageMealsPageState extends State<ManageMealsPage> with SingleTickerProv
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -482,7 +482,7 @@ class _ManageMealsPageState extends State<ManageMealsPage> with SingleTickerProv
         color: isOn ? const Color(0xFFE8F5E9) : const Color(0xFFF5F5F5),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: isOn ? const Color(0xFF4CAF50).withOpacity(0.3) : const Color(0xFFE0E0E0),
+          color: isOn ? const Color(0xFF4CAF50).withValues(alpha: 0.3) : const Color(0xFFE0E0E0),
           width: 1,
         ),
       ),
@@ -510,7 +510,7 @@ class _ManageMealsPageState extends State<ManageMealsPage> with SingleTickerProv
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                             decoration: BoxDecoration(
-                              color: Colors.red.withOpacity(0.1),
+                              color: Colors.red.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: const Text(
@@ -528,10 +528,10 @@ class _ManageMealsPageState extends State<ManageMealsPage> with SingleTickerProv
                     const SizedBox(height: 4),
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.access_time,
                           size: 14,
-                          color: const Color(0xFF757575),
+                          color: Color(0xFF757575),
                         ),
                         const SizedBox(width: 4),
                         Text(
@@ -546,10 +546,10 @@ class _ManageMealsPageState extends State<ManageMealsPage> with SingleTickerProv
                     const SizedBox(height: 4),
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.location_on,
                           size: 14,
-                          color: const Color(0xFF757575),
+                          color: Color(0xFF757575),
                         ),
                         const SizedBox(width: 4),
                         Expanded(
@@ -586,7 +586,7 @@ class _ManageMealsPageState extends State<ManageMealsPage> with SingleTickerProv
                         );
                       }
                     : null,
-                activeColor: const Color(0xFF4CAF50),
+                activeThumbColor: const Color(0xFF4CAF50),
               ),
             ],
           ),
@@ -828,4 +828,5 @@ class _ManageMealsPageState extends State<ManageMealsPage> with SingleTickerProv
     );
   }
 }
+
 

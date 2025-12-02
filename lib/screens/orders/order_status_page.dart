@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 
 class OrderStatusPage extends StatefulWidget {
   const OrderStatusPage({super.key});
@@ -245,7 +245,7 @@ class _OrderStatusPageState extends State<OrderStatusPage> with SingleTickerProv
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -259,7 +259,7 @@ class _OrderStatusPageState extends State<OrderStatusPage> with SingleTickerProv
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: iconColor.withOpacity(0.1),
+                  color: iconColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Icon(icon, color: iconColor, size: 24),
@@ -291,7 +291,7 @@ class _OrderStatusPageState extends State<OrderStatusPage> with SingleTickerProv
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: statusColor.withOpacity(0.1),
+                  color: statusColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
@@ -392,4 +392,5 @@ class _OrderStatusPageState extends State<OrderStatusPage> with SingleTickerProv
     );
   }
 }
+
 

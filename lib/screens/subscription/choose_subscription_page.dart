@@ -53,7 +53,7 @@ class _ChooseSubscriptionPageState extends State<ChooseSubscriptionPage> {
                         title: 'Hostel Plan',
                         description:
                             'Perfect for students living in hostels. Includes balanced nutrition.',
-                        price: '₹${MealPricing.calculateBasePrice(selectedMeals: widget.selectedMeals, planType: 'hostel').toInt()}/month',
+                        price: 'â‚¹${MealPricing.calculateBasePrice(selectedMeals: widget.selectedMeals, planType: 'hostel').toInt()}/month',
                         isSelected: selectedPlan == 'hostel',
                         onTap: () => setState(() => selectedPlan = 'hostel'),
                         isSmallScreen: isSmallScreen,
@@ -65,7 +65,7 @@ class _ChooseSubscriptionPageState extends State<ChooseSubscriptionPage> {
                         title: 'Employee Plan',
                         description:
                             'Designed for working professionals. Premium meals with varied menu.',
-                        price: '₹${MealPricing.calculateBasePrice(selectedMeals: widget.selectedMeals, planType: 'employee').toInt()}/month',
+                        price: 'â‚¹${MealPricing.calculateBasePrice(selectedMeals: widget.selectedMeals, planType: 'employee').toInt()}/month',
                         isSelected: selectedPlan == 'employee',
                         onTap: () => setState(() => selectedPlan = 'employee'),
                         isSmallScreen: isSmallScreen,
@@ -84,7 +84,7 @@ class _ChooseSubscriptionPageState extends State<ChooseSubscriptionPage> {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: Colors.black.withValues(alpha: 0.05),
                       blurRadius: 10,
                       offset: const Offset(0, -2),
                     ),
@@ -208,8 +208,8 @@ class _ChooseSubscriptionPageState extends State<ChooseSubscriptionPage> {
         Container(
           width: isSmallScreen ? 28 : 32,
           height: isSmallScreen ? 28 : 32,
-          decoration: BoxDecoration(
-            color: const Color(0xFF4CAF50),
+          decoration: const BoxDecoration(
+            color: Color(0xFF4CAF50),
             shape: BoxShape.circle,
           ),
           child: Center(
@@ -261,7 +261,7 @@ class _ChooseSubscriptionPageState extends State<ChooseSubscriptionPage> {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -273,7 +273,7 @@ class _ChooseSubscriptionPageState extends State<ChooseSubscriptionPage> {
               width: isSmallScreen ? 60 : 70,
               height: isSmallScreen ? 60 : 70,
               decoration: BoxDecoration(
-                color: iconColor.withOpacity(0.1),
+                color: iconColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(icon, color: iconColor, size: isSmallScreen ? 30 : 35),
@@ -331,3 +331,4 @@ class _ChooseSubscriptionPageState extends State<ChooseSubscriptionPage> {
     );
   }
 }
+

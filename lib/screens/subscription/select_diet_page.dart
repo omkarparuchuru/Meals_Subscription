@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'customize_dinner_page.dart';
 import 'select_duration_page.dart';
 
@@ -87,7 +87,7 @@ class _SelectDietPageState extends State<SelectDietPage> {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: Colors.black.withValues(alpha: 0.05),
                       blurRadius: 10,
                       offset: const Offset(0, -2),
                     ),
@@ -265,9 +265,9 @@ class _SelectDietPageState extends State<SelectDietPage> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: planColor.withOpacity(0.1),
+        color: planColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: planColor.withOpacity(0.3)),
+        border: Border.all(color: planColor.withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
@@ -311,7 +311,7 @@ class _SelectDietPageState extends State<SelectDietPage> {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -324,8 +324,8 @@ class _SelectDietPageState extends State<SelectDietPage> {
               height: isSmallScreen ? 50 : 60,
               decoration: BoxDecoration(
                 color: isSelected
-                    ? const Color(0xFF4CAF50).withOpacity(0.1)
-                    : const Color(0xFFE0E0E0).withOpacity(0.3),
+                    ? const Color(0xFF4CAF50).withValues(alpha: 0.1)
+                    : const Color(0xFFE0E0E0).withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(
@@ -379,3 +379,4 @@ class _SelectDietPageState extends State<SelectDietPage> {
     );
   }
 }
+

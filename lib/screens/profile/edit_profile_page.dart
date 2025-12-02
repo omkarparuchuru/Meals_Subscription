@@ -1,4 +1,4 @@
-import 'dart:io';
+﻿import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -223,7 +223,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           Text(
             'Update your personal information and delivery address.',
             style: TextStyle(
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.white.withValues(alpha: 0.8),
               fontSize: 14,
             ),
           ),
@@ -258,7 +258,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       : null,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withValues(alpha: 0.1),
                       blurRadius: 12,
                       offset: const Offset(0, 6),
                     ),
@@ -399,4 +399,5 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 }
+
 

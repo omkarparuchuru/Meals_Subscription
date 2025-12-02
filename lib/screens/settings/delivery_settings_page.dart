@@ -61,7 +61,7 @@ class DeliverySettingsPage extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -91,8 +91,8 @@ class DeliverySettingsPage extends StatelessWidget {
             const SizedBox(height: 16),
           ],
           const Divider(height: 32),
-          Row(
-            children: const [
+          const Row(
+            children: [
               Icon(Icons.info_outline, color: Color(0xFF757575), size: 16),
               SizedBox(width: 8),
               Expanded(
@@ -159,7 +159,7 @@ class DeliverySettingsPage extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -274,7 +274,7 @@ class DeliverySettingsPage extends StatelessWidget {
   List<Widget> _buildUpgradeOptions(BuildContext context, bool isSmallScreen, List<String> meals) {
     return [
       const Text(
-        'Upgrade Meals (Veg → Non‑Veg)',
+        'Upgrade Meals (Veg â†’ Nonâ€‘Veg)',
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF2C2C2C)),
       ),
       const SizedBox(height: 12),
@@ -285,7 +285,7 @@ class DeliverySettingsPage extends StatelessWidget {
           elevation: 3,
           child: ListTile(
             leading: Icon(_mealIcon(meal), color: const Color(0xFF4CAF50)),
-            title: Text('Upgrade $meal to Non‑Veg', style: const TextStyle(fontWeight: FontWeight.w600)),
+            title: Text('Upgrade $meal to Nonâ€‘Veg', style: const TextStyle(fontWeight: FontWeight.w600)),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
             onTap: () async {
               final result = await Navigator.push(
@@ -377,4 +377,5 @@ class DeliverySettingsPage extends StatelessWidget {
     }
   }
 }
+
 

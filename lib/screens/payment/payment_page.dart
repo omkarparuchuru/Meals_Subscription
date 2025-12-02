@@ -46,11 +46,12 @@ class _PaymentPageState extends State<PaymentPage> {
 
     return Scaffold(
       backgroundColor: const Color(0xFFFAFAFA),
-      body: SafeArea(
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
         child: Column(
           children: [
             // Header
-            _buildHeader(isSmallScreen),
+            _buildHeader(isSmallScreen, context),
             // Content
             Expanded(
               child: SingleChildScrollView(
@@ -81,19 +82,26 @@ class _PaymentPageState extends State<PaymentPage> {
             ),
             // Pay Button
             Container(
-              padding: EdgeInsets.all(isSmallScreen ? 16 : 24),
+              padding: EdgeInsets.only(
+                left: isSmallScreen ? 16 : 24,
+                right: isSmallScreen ? 16 : 24,
+                top: isSmallScreen ? 16 : 24,
+                bottom: 0,
+              ),
               decoration: BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 10,
                     offset: const Offset(0, -2),
                   ),
                 ],
               ),
               child: SafeArea(
-                child: SizedBox(
+                top: false,
+                child: Container(
+                  margin: EdgeInsets.only(bottom: isSmallScreen ? 16 : 24),
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
@@ -133,7 +141,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 ),
                               )
                             : Text(
-                                'Pay ₹${widget.totalAmount.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
+                                'Pay â‚¹${widget.totalAmount.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -152,12 +160,14 @@ class _PaymentPageState extends State<PaymentPage> {
     );
   }
 
-  Widget _buildHeader(bool isSmallScreen) {
+  Widget _buildHeader(bool isSmallScreen, BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(
-        horizontal: isSmallScreen ? 16 : 24,
-        vertical: isSmallScreen ? 16 : 20,
+      padding: EdgeInsets.only(
+        left: isSmallScreen ? 16 : 24,
+        right: isSmallScreen ? 16 : 24,
+        top: MediaQuery.of(context).padding.top + (isSmallScreen ? 16 : 20),
+        bottom: isSmallScreen ? 16 : 20,
       ),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -178,6 +188,11 @@ class _PaymentPageState extends State<PaymentPage> {
             label: const Text(
               'Back',
               style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.zero,
+              alignment: Alignment.centerLeft,
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
           ),
           const SizedBox(height: 8),
@@ -210,7 +225,7 @@ class _PaymentPageState extends State<PaymentPage> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -261,7 +276,7 @@ class _PaymentPageState extends State<PaymentPage> {
       child: Container(
         decoration: BoxDecoration(
           color: isSelected
-              ? const Color(0xFF4CAF50).withOpacity(0.1)
+              ? const Color(0xFF4CAF50).withValues(alpha: 0.1)
               : const Color(0xFFF5F5F5),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
@@ -306,7 +321,7 @@ class _PaymentPageState extends State<PaymentPage> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -364,7 +379,7 @@ class _PaymentPageState extends State<PaymentPage> {
               color: const Color(0xFFE3F2FD),
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: const Color(0xFF2196F3).withOpacity(0.3),
+                color: const Color(0xFF2196F3).withValues(alpha: 0.3),
               ),
             ),
             child: const Row(
@@ -401,7 +416,7 @@ class _PaymentPageState extends State<PaymentPage> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -466,9 +481,9 @@ class _PaymentPageState extends State<PaymentPage> {
           const SizedBox(height: 12),
           _buildSummaryRow('Meals Included', widget.selectedMeals.join(', '), isSmallScreen),
           const Divider(height: 24),
-          _buildSummaryRow('Subtotal', '₹${widget.subtotal.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}', isSmallScreen),
+          _buildSummaryRow('Subtotal', 'â‚¹${widget.subtotal.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}', isSmallScreen),
           const SizedBox(height: 8),
-          _buildSummaryRow('GST (5%)', '₹${((widget.subtotal * 0.05).round()).toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}', isSmallScreen),
+          _buildSummaryRow('GST (5%)', 'â‚¹${((widget.subtotal * 0.05).round()).toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}', isSmallScreen),
           const Divider(height: 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -488,7 +503,7 @@ class _PaymentPageState extends State<PaymentPage> {
               const SizedBox(width: 8),
               Flexible(
                 child: Text(
-                  '₹${widget.totalAmount.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
+                  'â‚¹${widget.totalAmount.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
                   style: TextStyle(
                     fontSize: isSmallScreen ? 16 : 18,
                     fontWeight: FontWeight.bold,
@@ -549,7 +564,7 @@ class _PaymentPageState extends State<PaymentPage> {
         color: const Color(0xFFE8F5E9),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: const Color(0xFF4CAF50).withOpacity(0.3),
+          color: const Color(0xFF4CAF50).withValues(alpha: 0.3),
         ),
       ),
       child: Row(
@@ -689,7 +704,7 @@ class _PaymentPageState extends State<PaymentPage> {
                         ),
                       ),
                       Text(
-                        '₹${widget.totalAmount.toString().replaceAllMapped(RegExp(r'(\\d)(?=(\\d{3})+(?!\\d))'), (Match m) => '${m[1]},')}',
+                        'â‚¹${widget.totalAmount.toString().replaceAllMapped(RegExp(r'(\\d)(?=(\\d{3})+(?!\\d))'), (Match m) => '${m[1]},')}',
                         style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -699,8 +714,8 @@ class _PaymentPageState extends State<PaymentPage> {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       Icon(Icons.verified, color: Color(0xFF4CAF50), size: 18),
                       SizedBox(width: 6),
                       Expanded(
@@ -811,14 +826,15 @@ class _PaymentPageState extends State<PaymentPage> {
   void _showPaymentSuccessAnimation(BuildContext context) {
     // Calculate days based on duration
     int days = 30; // Default 1 month
-    if (widget.duration == '3 Months') days = 90;
-    else if (widget.duration == '6 Months') days = 180;
+    if (widget.duration == '3 Months') {
+      days = 90;
+    } else if (widget.duration == '6 Months') days = 180;
     else if (widget.duration == '1 Year') days = 365;
     
     showDialog(
       context: context,
       barrierDismissible: false,
-      barrierColor: Colors.black.withOpacity(0.7),
+      barrierColor: Colors.black.withValues(alpha: 0.7),
       builder: (context) => Dialog(
         backgroundColor: Colors.transparent,
         child: TweenAnimationBuilder<double>(
@@ -835,7 +851,7 @@ class _PaymentPageState extends State<PaymentPage> {
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
+                      color: Colors.black.withValues(alpha: 0.3),
                       blurRadius: 20,
                       offset: const Offset(0, 10),
                     ),
@@ -856,7 +872,7 @@ class _PaymentPageState extends State<PaymentPage> {
                             width: 100,
                             height: 100,
                             decoration: BoxDecoration(
-                              color: Colors.green.withOpacity(0.1),
+                              color: Colors.green.withValues(alpha: 0.1),
                               shape: BoxShape.circle,
                             ),
                             child: const Icon(
@@ -912,20 +928,20 @@ class _PaymentPageState extends State<PaymentPage> {
                                   color: const Color(0xFFE8F5E9),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
-                                child: Row(
+                                child: const Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       Icons.email,
                                       color: Color(0xFF4CAF50),
                                       size: 18,
                                     ),
-                                    const SizedBox(width: 8),
+                                    SizedBox(width: 8),
                                     Text(
                                       'Confirmation email sent',
                                       style: TextStyle(
                                         fontSize: 14,
-                                        color: const Color(0xFF4CAF50),
+                                        color: Color(0xFF4CAF50),
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
@@ -960,7 +976,6 @@ class _PaymentPageState extends State<PaymentPage> {
                                   final mobileNumber = prefs.getString('mobileNumber') ?? '+91 6302207891';
                                   final address = prefs.getString('address') ?? '123 Main Street';
                                   final landmark = prefs.getString('landmark');
-                                  final profileImagePath = prefs.getString('profileImagePath');
                                   
                                   // Save dinner customization
                                   if (widget.dinnerCustomization != null) {
@@ -987,17 +1002,6 @@ class _PaymentPageState extends State<PaymentPage> {
                                           mobileNumber: mobileNumber,
                                           address: address,
                                           landmark: landmark,
-                                          profileImagePath: profileImagePath,
-                                        ),
-                                        settings: RouteSettings(
-                                          arguments: {
-                                            'planType': widget.planType,
-                                            'dietType': widget.dietType,
-                                            'duration': widget.duration,
-                                            'days': days,
-                                            'dinnerCustomization': widget.dinnerCustomization,
-                                            'selectedMeals': widget.selectedMeals,
-                                          },
                                         ),
                                       ),
                                       (route) => false,
@@ -1058,4 +1062,5 @@ class _PaymentPageState extends State<PaymentPage> {
     );
   }
 }
+
 

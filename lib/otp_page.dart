@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'profile_page.dart';
@@ -200,7 +200,7 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
     final isMobile = size.width < 600;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFAFAFA),
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -223,7 +223,7 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
                           child: IconButton(
                             onPressed: () => Navigator.pop(context),
                             icon: const Icon(Icons.arrow_back_ios),
-                            color: const Color(0xFF2C2C2C),
+                            color: Theme.of(context).colorScheme.onSurface,
                             tooltip: 'Go back',
                           ),
                         ),
@@ -254,7 +254,7 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
                                         style: TextStyle(
                                           fontSize: isSmallScreen ? 28 : isTablet ? 36 : 32,
                                           fontWeight: FontWeight.bold,
-                                          color: const Color(0xFF2C2C2C),
+                                          color: Theme.of(context).colorScheme.onSurface,
                                           letterSpacing: -0.5,
                                         ),
                                       ),
@@ -267,7 +267,7 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: isSmallScreen ? 14 : 16,
-                                          color: const Color(0xFF757575),
+                                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                                         ),
                                       ),
                                       
@@ -280,7 +280,7 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
                                           vertical: 8,
                                         ),
                                         decoration: BoxDecoration(
-                                          color: const Color(0xFF4CAF50).withOpacity(0.1),
+                                          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
                                           borderRadius: BorderRadius.circular(20),
                                         ),
                                         child: Text(
@@ -288,7 +288,7 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
                                           style: TextStyle(
                                             fontSize: isSmallScreen ? 15 : 17,
                                             fontWeight: FontWeight.w600,
-                                            color: const Color(0xFF4CAF50),
+                                            color: Theme.of(context).colorScheme.primary,
                                           ),
                                         ),
                                       ),
@@ -383,18 +383,18 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
             width: isSmallScreen ? 80 : 100,
             height: isSmallScreen ? 80 : 100,
             decoration: BoxDecoration(
-              gradient: const LinearGradient(
+              gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Color(0xFF4CAF50),
-                  Color(0xFF66BB6A),
+                  Theme.of(context).colorScheme.primary,
+                  Theme.of(context).colorScheme.secondary,
                 ],
               ),
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF4CAF50).withOpacity(0.3),
+                  color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
                   blurRadius: 20,
                   offset: const Offset(0, 10),
                 ),
@@ -437,21 +437,21 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
       height: size,
       decoration: BoxDecoration(
         color: hasValue
-            ? const Color(0xFF4CAF50).withOpacity(0.1)
+            ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
             : Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isFocused
-              ? const Color(0xFF4CAF50)
+              ? Theme.of(context).colorScheme.primary
               : hasValue
-                  ? const Color(0xFF4CAF50).withOpacity(0.5)
-                  : const Color(0xFFE0E0E0),
+                  ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.5)
+                  : Theme.of(context).dividerColor,
           width: isFocused ? 2 : 1.5,
         ),
         boxShadow: isFocused
             ? [
                 BoxShadow(
-                  color: const Color(0xFF4CAF50).withOpacity(0.2),
+                  color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -467,7 +467,7 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
         style: TextStyle(
           fontSize: fontSize,
           fontWeight: FontWeight.bold,
-          color: const Color(0xFF2C2C2C),
+          color: Theme.of(context).colorScheme.onSurface,
         ),
         decoration: const InputDecoration(
           counterText: '',
@@ -501,8 +501,8 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
               colors: _isVerifying
                   ? [Colors.grey.shade400, Colors.grey.shade500]
                   : [
-                      const Color(0xFF4CAF50),
-                      const Color(0xFF66BB6A),
+                      Theme.of(context).colorScheme.primary,
+                      Theme.of(context).colorScheme.secondary,
                     ],
             ),
             borderRadius: BorderRadius.circular(12),
@@ -541,7 +541,7 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
           "Didn't receive the code? ",
           style: TextStyle(
             fontSize: isSmallScreen ? 14 : 15,
-            color: const Color(0xFF757575),
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
         ),
         if (_isTimerActive)
@@ -549,7 +549,7 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
             '($_resendTimer s)',
             style: TextStyle(
               fontSize: isSmallScreen ? 14 : 15,
-              color: const Color(0xFF4CAF50),
+              color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.w600,
             ),
           )
@@ -560,7 +560,7 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
               'Resend',
               style: TextStyle(
                 fontSize: isSmallScreen ? 14 : 15,
-                color: const Color(0xFF4CAF50),
+                color: Theme.of(context).colorScheme.primary,
                 fontWeight: FontWeight.bold,
                 decoration: TextDecoration.underline,
               ),
@@ -570,3 +570,4 @@ class _OtpPageState extends State<OtpPage> with TickerProviderStateMixin {
     );
   }
 }
+

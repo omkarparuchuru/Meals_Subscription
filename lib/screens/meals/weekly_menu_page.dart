@@ -70,33 +70,55 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
 
     return Scaffold(
       backgroundColor: const Color(0xFFFAFAFA),
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Header
-            if (!widget.isFromManage) _buildHeader(isSmallScreen, context),
-            // Upgrade Banner removed - use dedicated Upgrade page instead
-            // Content
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: isSmallScreen ? 16 : (isTablet ? 40 : 24),
+      body: widget.isFromManage
+          ? SafeArea(
+              child: Column(
+                children: [
+                  // No Header for Manage mode
+                  // Content
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: isSmallScreen ? 16 : (isTablet ? 40 : 24),
+                        ),
+                        child: Column(
+                          children: [
+                            // Weekly Menu
+                            _buildWeeklyMenuWithNextWeek(isSmallScreen),
+                            const SizedBox(height: 40),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                  child: Column(
-                    children: [
-                      if (!widget.isFromManage) const SizedBox(height: 24),
-                      // Weekly Menu - Show current week and next week from Friday
-                      _buildWeeklyMenuWithNextWeek(isSmallScreen),
-                      const SizedBox(height: 40),
-                    ],
+                ],
+              ),
+            )
+          : Column(
+              children: [
+                // Header
+                _buildHeader(isSmallScreen, context),
+                // Content
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: isSmallScreen ? 16 : (isTablet ? 40 : 24),
+                      ),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 24),
+                          // Weekly Menu
+                          _buildWeeklyMenuWithNextWeek(isSmallScreen),
+                          const SizedBox(height: 40),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
     );
   }
   
@@ -116,7 +138,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -143,7 +165,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
                   'Enjoy premium non-veg meals. Upgrade for a day, week, or specific meal.',
                   style: TextStyle(
                     fontSize: isSmallScreen ? 13 : 14,
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                   ),
                 ),
               ],
@@ -163,9 +185,11 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
   Widget _buildHeader(bool isSmallScreen, BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(
-        horizontal: isSmallScreen ? 16 : 24,
-        vertical: isSmallScreen ? 16 : 20,
+      padding: EdgeInsets.only(
+        left: isSmallScreen ? 16 : 24,
+        right: isSmallScreen ? 16 : 24,
+        top: MediaQuery.of(context).padding.top + (isSmallScreen ? 16 : 20),
+        bottom: isSmallScreen ? 16 : 20,
       ),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -186,6 +210,11 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
             label: const Text(
               'Back to Home',
               style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.zero,
+              alignment: Alignment.centerLeft,
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
           ),
           const SizedBox(height: 8),
@@ -252,7 +281,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
           ),
           const SizedBox(height: 12),
           Text(
-            'It’s Friday! We have refreshed your entire menu for the upcoming week.',
+            'Itâ€™s Friday! We have refreshed your entire menu for the upcoming week.',
             style: TextStyle(
               fontSize: isSmallScreen ? 12 : 13,
               color: const Color(0xFF757575),
@@ -303,7 +332,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
         ),
         const SizedBox(height: 12),
         Text(
-          'Here’s a sneak peek of the upcoming menu. It automatically replaces the current menu this Friday.',
+          'Hereâ€™s a sneak peek of the upcoming menu. It automatically replaces the current menu this Friday.',
           style: TextStyle(
             fontSize: isSmallScreen ? 12 : 13,
             color: const Color(0xFF757575),
@@ -622,7 +651,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -650,7 +679,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
                       _showUpgradeOptions(context, isSmallScreen, day: day),
                   icon: const Icon(Icons.upgrade, size: 14),
                   label: Text(
-                    'Upgrade Day (+₹50)',
+                    'Upgrade Day (+â‚¹50)',
                     style: TextStyle(fontSize: isSmallScreen ? 11 : 12),
                   ),
                   style: TextButton.styleFrom(
@@ -722,7 +751,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
                                         horizontal: 6, vertical: 2),
                                     decoration: BoxDecoration(
                                       color: const Color(0xFFFF9800)
-                                          .withOpacity(0.15),
+                                          .withValues(alpha: 0.15),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Text(
@@ -772,7 +801,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
                         ),
                         icon: Icon(Icons.upgrade, size: isSmallScreen ? 12 : 14),
                         label: Text(
-                          'Upgrade $mealType (+₹20)',
+                          'Upgrade $mealType (+â‚¹20)',
                           style:
                               TextStyle(fontSize: isSmallScreen ? 10 : 11),
                         ),
@@ -862,7 +891,7 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
                   ),
                 ),
                 Text(
-                  '₹${amount.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
+                  'â‚¹${amount.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -981,10 +1010,10 @@ class _UpgradeOptionsSheet extends StatelessWidget {
     final isSmallScreen = screenWidth < 360;
 
     // Pricing
-    final singleMealPrice = 20; // Per meal
-    final dayPrice = 50; // All 3 meals for a day
-    final weekPrice = 300; // All meals for a week
-    final monthPrice = 950; // Full month upgrade
+    const singleMealPrice = 20; // Per meal
+    const dayPrice = 50; // All 3 meals for a day
+    const weekPrice = 300; // All meals for a week
+    const monthPrice = 950; // Full month upgrade
 
     return Container(
       padding: EdgeInsets.all(isSmallScreen ? 20 : 24),
@@ -1110,7 +1139,7 @@ class _UpgradeOptionsSheet extends StatelessWidget {
         leading: Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: const Color(0xFFFF9800).withOpacity(0.1),
+            color: const Color(0xFFFF9800).withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(icon, color: const Color(0xFFFF9800)),
@@ -1158,7 +1187,7 @@ class _UpgradeOptionsSheet extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              '₹${price.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
+              'â‚¹${price.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
               style: TextStyle(
                 fontSize: isSmallScreen ? 18 : 20,
                 fontWeight: FontWeight.bold,
@@ -1183,4 +1212,5 @@ class _UpgradeOptionsSheet extends StatelessWidget {
     );
   }
 }
+
 

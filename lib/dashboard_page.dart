@@ -171,13 +171,14 @@ class _DashboardPageState extends State<DashboardPage> {
     final isTablet = screenWidth > 600;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFAFAFA),
-      body: SafeArea(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
         child: SingleChildScrollView(
           child: Column(
             children: [
               // Header Section with Gradient
-              _buildHeader(isSmallScreen),
+              _buildHeader(isSmallScreen, context),
               const SizedBox(height: 20),
               // Conditional Content Based on Subscription Status
               if (_hasActiveSubscription) ...[
@@ -226,20 +227,22 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget _buildHeader(bool isSmallScreen) {
+  Widget _buildHeader(bool isSmallScreen, BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(
-        horizontal: isSmallScreen ? 16 : 24,
-        vertical: isSmallScreen ? 20 : 24,
+      padding: EdgeInsets.only(
+        left: isSmallScreen ? 16 : 24,
+        right: isSmallScreen ? 16 : 24,
+        top: MediaQuery.of(context).padding.top + (isSmallScreen ? 20 : 24),
+        bottom: isSmallScreen ? 20 : 24,
       ),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
           colors: [
-            Color(0xFFFF9800), // Orange
-            Color(0xFF4CAF50), // Green
+            Theme.of(context).colorScheme.primary,
+            Theme.of(context).colorScheme.secondary,
           ],
         ),
       ),
@@ -281,7 +284,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                       height: isSmallScreen ? 36 : 44,
                                       margin: EdgeInsets.only(right: isSmallScreen ? 10 : 12),
                                       decoration: BoxDecoration(
-                                        color: Colors.white.withOpacity(0.2),
+                                        color: Colors.white.withValues(alpha: 0.2),
                                         shape: BoxShape.circle,
                                         border: Border.all(
                                           color: Colors.white,
@@ -313,7 +316,7 @@ class _DashboardPageState extends State<DashboardPage> {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        const Text('👋', style: TextStyle(fontSize: 24)),
+                        const Text('ðŸ‘‹', style: TextStyle(fontSize: 24)),
                         const SizedBox(width: 8),
                         // Logout Button
                         IconButton(
@@ -353,7 +356,7 @@ class _DashboardPageState extends State<DashboardPage> {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 15,
             offset: const Offset(0, 4),
           ),
@@ -366,7 +369,7 @@ class _DashboardPageState extends State<DashboardPage> {
             style: TextStyle(
               fontSize: isSmallScreen ? 16 : 18,
               fontWeight: FontWeight.w600,
-              color: const Color(0xFF2C2C2C),
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
           const SizedBox(height: 16),
@@ -387,12 +390,12 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
               child: Container(
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
+                  gradient: LinearGradient(
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
                     colors: [
-                      Color(0xFFFF9800), // Orange
-                      Color(0xFF4CAF50), // Green
+                      Theme.of(context).colorScheme.primary,
+                      Theme.of(context).colorScheme.secondary,
                     ],
                   ),
                   borderRadius: BorderRadius.circular(12),
@@ -418,11 +421,11 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget _buildActiveSubscriptionCard(bool isSmallScreen) {
     final planName = _subscriptionPlanType == 'hostel' ? 'Hostel Plan' : 'Employee Plan';
     final planColor = _subscriptionPlanType == 'hostel'
-        ? const Color(0xFF2196F3)
-        : const Color(0xFF9C27B0);
+        ? Colors.blue[700]!
+        : Colors.purple[700]!;
     final dietColor = _subscriptionDietType == 'vegetarian'
-        ? const Color(0xFF4CAF50)
-        : const Color(0xFFFF9800);
+        ? Theme.of(context).colorScheme.primary
+        : Theme.of(context).colorScheme.secondary;
 
     return Container(
       padding: EdgeInsets.all(isSmallScreen ? 20 : 24),
@@ -431,7 +434,7 @@ class _DashboardPageState extends State<DashboardPage> {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 15,
             offset: const Offset(0, 4),
           ),
@@ -449,7 +452,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   style: TextStyle(
                     fontSize: isSmallScreen ? 18 : 20,
                     fontWeight: FontWeight.bold,
-                    color: const Color(0xFF2C2C2C),
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -463,7 +466,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: planColor.withOpacity(0.1),
+                    color: planColor.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
@@ -486,7 +489,7 @@ class _DashboardPageState extends State<DashboardPage> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: dietColor.withOpacity(0.1),
+                  color: dietColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
@@ -521,7 +524,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     'Valid for',
                     style: TextStyle(
                       fontSize: isSmallScreen ? 12 : 14,
-                      color: const Color(0xFF757575),
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
                   ),
                   Text(
@@ -529,14 +532,14 @@ class _DashboardPageState extends State<DashboardPage> {
                     style: TextStyle(
                       fontSize: isSmallScreen ? 28 : 32,
                       fontWeight: FontWeight.bold,
-                      color: const Color(0xFF2C2C2C),
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                   Text(
                     'days',
                     style: TextStyle(
                       fontSize: isSmallScreen ? 12 : 14,
-                      color: const Color(0xFF757575),
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
                   ),
                 ],
@@ -554,7 +557,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     'Duration',
                     style: TextStyle(
                       fontSize: isSmallScreen ? 12 : 14,
-                      color: const Color(0xFF757575),
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -563,7 +566,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     style: TextStyle(
                       fontSize: isSmallScreen ? 14 : 16,
                       fontWeight: FontWeight.w600,
-                      color: const Color(0xFF2C2C2C),
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                 ],
@@ -575,7 +578,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     'Expires',
                     style: TextStyle(
                       fontSize: isSmallScreen ? 12 : 14,
-                      color: const Color(0xFF757575),
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -586,7 +589,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     style: TextStyle(
                       fontSize: isSmallScreen ? 14 : 16,
                       fontWeight: FontWeight.w600,
-                      color: const Color(0xFF2C2C2C),
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                 ],
@@ -606,7 +609,7 @@ class _DashboardPageState extends State<DashboardPage> {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 15,
             offset: const Offset(0, 4),
           ),
@@ -620,7 +623,7 @@ class _DashboardPageState extends State<DashboardPage> {
             style: TextStyle(
               fontSize: isSmallScreen ? 18 : 20,
               fontWeight: FontWeight.bold,
-              color: const Color(0xFF2C2C2C),
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
           const SizedBox(height: 16),
@@ -658,7 +661,7 @@ class _DashboardPageState extends State<DashboardPage> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0xFFF5F5F5),
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -666,7 +669,7 @@ class _DashboardPageState extends State<DashboardPage> {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: iconColor.withOpacity(0.1),
+              color: iconColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(icon, color: iconColor, size: 20),
@@ -681,7 +684,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   style: TextStyle(
                     fontSize: isSmallScreen ? 16 : 18,
                     fontWeight: FontWeight.w600,
-                    color: const Color(0xFF2C2C2C),
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -689,7 +692,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   time,
                   style: TextStyle(
                     fontSize: isSmallScreen ? 12 : 13,
-                    color: const Color(0xFF757575),
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                 ),
               ],
@@ -701,7 +704,7 @@ class _DashboardPageState extends State<DashboardPage> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
-                  color: statusColor.withOpacity(0.1),
+                  color: statusColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -757,17 +760,17 @@ class _DashboardPageState extends State<DashboardPage> {
     final plans = [
       {
         'name': 'Hostel Plan',
-        'price': '₹2,999/month',
+        'price': 'â‚¹2,999/month',
         'description': 'Perfect for students. 3 meals daily.',
         'icon': Icons.apartment,
-        'color': const Color(0xFF2196F3),
+        'color': Colors.blue[700]!,
       },
       {
         'name': 'Employee Plan',
-        'price': '₹3,499/month',
+        'price': 'â‚¹3,499/month',
         'description': 'For working professionals. Premium meals.',
         'icon': Icons.people,
-        'color': const Color(0xFF9C27B0),
+        'color': Colors.purple[700]!,
       },
     ];
 
@@ -815,7 +818,7 @@ class _DashboardPageState extends State<DashboardPage> {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -827,7 +830,7 @@ class _DashboardPageState extends State<DashboardPage> {
               width: isSmallScreen ? 60 : 70,
               height: isSmallScreen ? 60 : 70,
               decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
+                color: color.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(icon, color: color, size: isSmallScreen ? 30 : 35),
@@ -842,7 +845,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     style: TextStyle(
                       fontSize: isSmallScreen ? 18 : 20,
                       fontWeight: FontWeight.bold,
-                      color: const Color(0xFF2C2C2C),
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -850,7 +853,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     description,
                     style: TextStyle(
                       fontSize: isSmallScreen ? 13 : 14,
-                      color: const Color(0xFF757575),
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -887,8 +890,8 @@ class _DashboardPageState extends State<DashboardPage> {
             onPressed: () {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: const Row(
+                const SnackBar(
+                  content: Row(
                     children: [
                       Icon(Icons.check_circle, color: Colors.white),
                       SizedBox(width: 8),
@@ -899,7 +902,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   backgroundColor: Colors.green,
                   behavior: SnackBarBehavior.floating,
-                  duration: const Duration(seconds: 3),
+                  duration: Duration(seconds: 3),
                 ),
               );
             },
@@ -1008,7 +1011,7 @@ class _DashboardPageState extends State<DashboardPage> {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.08),
+              color: Colors.black.withValues(alpha: 0.08),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -1059,7 +1062,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     style: TextStyle(
                       fontSize: isSmallScreen ? 18 : 20,
                       fontWeight: FontWeight.bold,
-                      color: const Color(0xFF2C2C2C),
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                   Row(
@@ -1202,7 +1205,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 style: TextStyle(
                   fontSize: isSmallScreen ? 15 : 16,
                   fontWeight: FontWeight.w600,
-                  color: const Color(0xFF2C2C2C),
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
             ],
@@ -1308,4 +1311,5 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
 }
+
 

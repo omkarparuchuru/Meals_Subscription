@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'choose_subscription_page.dart';
 
 class MealCustomizationPage extends StatefulWidget {
@@ -130,7 +130,7 @@ class _MealCustomizationPageState extends State<MealCustomizationPage> {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 10,
                     offset: const Offset(0, -2),
                   ),
@@ -248,7 +248,7 @@ class _MealCustomizationPageState extends State<MealCustomizationPage> {
       decoration: BoxDecoration(
         color: const Color(0xFFE3F2FD),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFF2196F3).withOpacity(0.3)),
+        border: Border.all(color: const Color(0xFF2196F3).withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
@@ -290,7 +290,7 @@ class _MealCustomizationPageState extends State<MealCustomizationPage> {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -302,7 +302,7 @@ class _MealCustomizationPageState extends State<MealCustomizationPage> {
               width: isSmallScreen ? 50 : 60,
               height: isSmallScreen ? 50 : 60,
               decoration: BoxDecoration(
-                color: isSelected ? color.withOpacity(0.1) : const Color(0xFFF5F5F5),
+                color: isSelected ? color.withValues(alpha: 0.1) : const Color(0xFFF5F5F5),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(
@@ -352,3 +352,4 @@ class _MealCustomizationPageState extends State<MealCustomizationPage> {
     );
   }
 }
+

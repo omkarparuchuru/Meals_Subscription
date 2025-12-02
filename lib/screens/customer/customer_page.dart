@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 
 class CustomerPage extends StatelessWidget {
   const CustomerPage({super.key});
@@ -15,75 +15,78 @@ class CustomerPage extends StatelessWidget {
         backgroundColor: const Color(0xFF4CAF50),
         foregroundColor: Colors.white,
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(isSmallScreen ? 16 : 24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 24),
-            // Contact Options
-            _buildContactCard(
-              icon: Icons.phone,
-              title: 'Call Us',
-              subtitle: '+91 1800-123-4567',
-              color: const Color(0xFF4CAF50),
-              onTap: () => _showCallDialog(context),
-              isSmallScreen: isSmallScreen,
-            ),
-            const SizedBox(height: 16),
-            _buildContactCard(
-              icon: Icons.email,
-              title: 'Email Us',
-              subtitle: 'support@finalmeals.com',
-              color: const Color(0xFF2196F3),
-              onTap: () => _showEmailDialog(context),
-              isSmallScreen: isSmallScreen,
-            ),
-            const SizedBox(height: 16),
-            _buildContactCard(
-              icon: Icons.chat,
-              title: 'Live Chat',
-              subtitle: 'Available 24/7',
-              color: const Color(0xFFFF9800),
-              onTap: () => _showChatDialog(context),
-              isSmallScreen: isSmallScreen,
-            ),
-            const SizedBox(height: 32),
-            // FAQ Section
-            Text(
-              'Frequently Asked Questions',
-              style: TextStyle(
-                fontSize: isSmallScreen ? 20 : 24,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xFF2C2C2C),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          padding: EdgeInsets.all(isSmallScreen ? 16 : 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 24),
+              // Contact Options
+              _buildContactCard(
+                icon: Icons.phone,
+                title: 'Call Us',
+                subtitle: '+91 1800-123-4567',
+                color: const Color(0xFF4CAF50),
+                onTap: () => _showCallDialog(context),
+                isSmallScreen: isSmallScreen,
               ),
-            ),
-            const SizedBox(height: 16),
-            _buildFaqItem(
-              question: 'How do I cancel my subscription?',
-              answer: 'You can cancel your subscription anytime from the Subscription Details page. Changes will take effect at the end of your current billing cycle.',
-              isSmallScreen: isSmallScreen,
-            ),
-            const SizedBox(height: 12),
-            _buildFaqItem(
-              question: 'Can I change my meal preferences?',
-              answer: 'Yes, you can modify your meal preferences from the Manage Meals page. Changes can be made before 8:00 PM for the next day.',
-              isSmallScreen: isSmallScreen,
-            ),
-            const SizedBox(height: 12),
-            _buildFaqItem(
-              question: 'What if I don\'t receive my meal?',
-              answer: 'You can report a missing meal from the Order Status page. Our team will contact you within 2 hours to resolve the issue.',
-              isSmallScreen: isSmallScreen,
-            ),
-            const SizedBox(height: 12),
-            _buildFaqItem(
-              question: 'How do I change my delivery address?',
-              answer: 'Go to Manage Meals > Delivery tab and click on "Change Address" to update your delivery location.',
-              isSmallScreen: isSmallScreen,
-            ),
-            const SizedBox(height: 40),
-          ],
+              const SizedBox(height: 16),
+              _buildContactCard(
+                icon: Icons.email,
+                title: 'Email Us',
+                subtitle: 'support@finalmeals.com',
+                color: const Color(0xFF2196F3),
+                onTap: () => _showEmailDialog(context),
+                isSmallScreen: isSmallScreen,
+              ),
+              const SizedBox(height: 16),
+              _buildContactCard(
+                icon: Icons.chat,
+                title: 'Live Chat',
+                subtitle: 'Available 24/7',
+                color: const Color(0xFFFF9800),
+                onTap: () => _showChatDialog(context),
+                isSmallScreen: isSmallScreen,
+              ),
+              const SizedBox(height: 32),
+              // FAQ Section
+              Text(
+                'Frequently Asked Questions',
+                style: TextStyle(
+                  fontSize: isSmallScreen ? 20 : 24,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xFF2C2C2C),
+                ),
+              ),
+              const SizedBox(height: 16),
+              _buildFaqItem(
+                question: 'How do I cancel my subscription?',
+                answer: 'You can cancel your subscription anytime from the Subscription Details page. Changes will take effect at the end of your current billing cycle.',
+                isSmallScreen: isSmallScreen,
+              ),
+              const SizedBox(height: 12),
+              _buildFaqItem(
+                question: 'Can I change my meal preferences?',
+                answer: 'Yes, you can modify your meal preferences from the Manage Meals page. Changes can be made before 8:00 PM for the next day.',
+                isSmallScreen: isSmallScreen,
+              ),
+              const SizedBox(height: 12),
+              _buildFaqItem(
+                question: 'What if I don\'t receive my meal?',
+                answer: 'You can report a missing meal from the Order Status page. Our team will contact you within 2 hours to resolve the issue.',
+                isSmallScreen: isSmallScreen,
+              ),
+              const SizedBox(height: 12),
+              _buildFaqItem(
+                question: 'How do I change my delivery address?',
+                answer: 'Go to Manage Meals > Delivery tab and click on "Change Address" to update your delivery location.',
+                isSmallScreen: isSmallScreen,
+              ),
+              const SizedBox(height: 40),
+            ],
+          ),
         ),
       ),
     );
@@ -97,57 +100,64 @@ class CustomerPage extends StatelessWidget {
     required VoidCallback onTap,
     required bool isSmallScreen,
   }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.all(isSmallScreen ? 16 : 20),
-        decoration: BoxDecoration(
-          color: Colors.white,
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(16),
+        child: InkWell(
+          onTap: onTap,
           borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 10,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(icon, color: color, size: 28),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: isSmallScreen ? 16 : 18,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xFF2C2C2C),
-                    ),
+          child: Padding(
+            padding: EdgeInsets.all(isSmallScreen ? 16 : 20),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: color.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    subtitle,
-                    style: TextStyle(
-                      fontSize: isSmallScreen ? 14 : 16,
-                      color: const Color(0xFF757575),
-                    ),
+                  child: Icon(icon, color: color, size: 28),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: isSmallScreen ? 16 : 18,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFF2C2C2C),
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        subtitle,
+                        style: TextStyle(
+                          fontSize: isSmallScreen ? 14 : 16,
+                          color: const Color(0xFF757575),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                const Icon(Icons.arrow_forward_ios, color: Color(0xFF757575), size: 16),
+              ],
             ),
-            const Icon(Icons.arrow_forward_ios, color: Color(0xFF757575), size: 16),
-          ],
+          ),
         ),
       ),
     );
@@ -274,4 +284,5 @@ class CustomerPage extends StatelessWidget {
     );
   }
 }
+
 

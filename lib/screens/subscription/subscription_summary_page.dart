@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import '../payment/payment_page.dart';
 
 class SubscriptionSummaryPage extends StatelessWidget {
@@ -30,100 +30,105 @@ class SubscriptionSummaryPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: const Color(0xFFFAFAFA),
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Header
-            _buildHeader(isSmallScreen, context),
-            // Content
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: isSmallScreen ? 16 : 24,
+      body: Column(
+        children: [
+          // Header
+          _buildHeader(isSmallScreen, context),
+          // Content
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: isSmallScreen ? 16 : 24,
+                ),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 24),
+                    // Subscription Summary Card
+                    _buildSummaryCard(isSmallScreen, gst, finalAmount),
+                    const SizedBox(height: 24),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          // Continue to Payment Button
+          Container(
+            padding: EdgeInsets.only(
+              left: isSmallScreen ? 16 : 24,
+              right: isSmallScreen ? 16 : 24,
+              top: isSmallScreen ? 16 : 24,
+              bottom: 0, // Handled by SafeArea
+            ),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.05),
+                  blurRadius: 10,
+                  offset: const Offset(0, -2),
+                ),
+              ],
+            ),
+            child: SafeArea(
+              top: false,
+              child: Container(
+                margin: EdgeInsets.only(bottom: isSmallScreen ? 16 : 24),
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PaymentPage(
+                          planType: planType,
+                          dietType: dietType,
+                          duration: duration,
+                          totalAmount: finalAmount,
+                          subtotal: totalAmount,
+                          selectedMeals: selectedMeals,
+                          dinnerCustomization: dinnerCustomization,
+                        ),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    padding: EdgeInsets.zero,
                   ),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 24),
-                      // Subscription Summary Card
-                      _buildSummaryCard(isSmallScreen, gst, finalAmount),
-                      const SizedBox(height: 24),
-                    ],
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          Color(0xFFFF9800),
+                          Color(0xFF4CAF50),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'Continue to Payment',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
-            // Continue to Payment Button
-            Container(
-              padding: EdgeInsets.all(isSmallScreen ? 16 : 24),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 10,
-                    offset: const Offset(0, -2),
-                  ),
-                ],
-              ),
-              child: SafeArea(
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PaymentPage(
-                            planType: planType,
-                            dietType: dietType,
-                            duration: duration,
-                            totalAmount: finalAmount,
-                            subtotal: totalAmount,
-                            selectedMeals: selectedMeals,
-                            dinnerCustomization: dinnerCustomization,
-                          ),
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      shadowColor: Colors.transparent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      padding: EdgeInsets.zero,
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                          colors: [
-                            Color(0xFFFF9800),
-                            Color(0xFF4CAF50),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'Continue to Payment',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -131,9 +136,11 @@ class SubscriptionSummaryPage extends StatelessWidget {
   Widget _buildHeader(bool isSmallScreen, BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(
-        horizontal: isSmallScreen ? 16 : 24,
-        vertical: isSmallScreen ? 16 : 20,
+      padding: EdgeInsets.only(
+        left: isSmallScreen ? 16 : 24,
+        right: isSmallScreen ? 16 : 24,
+        top: MediaQuery.of(context).padding.top + (isSmallScreen ? 16 : 20),
+        bottom: isSmallScreen ? 16 : 20,
       ),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -154,6 +161,11 @@ class SubscriptionSummaryPage extends StatelessWidget {
             label: const Text(
               'Back',
               style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.zero,
+              alignment: Alignment.centerLeft,
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
           ),
           const SizedBox(height: 8),
@@ -180,7 +192,7 @@ class SubscriptionSummaryPage extends StatelessWidget {
         color: const Color(0xFFE8F5E9),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: const Color(0xFF4CAF50).withOpacity(0.3),
+          color: const Color(0xFF4CAF50).withValues(alpha: 0.3),
           width: 2,
         ),
       ),
@@ -228,9 +240,9 @@ class SubscriptionSummaryPage extends StatelessWidget {
             ),
           ],
           const Divider(height: 32),
-          _buildSummaryRow('Subtotal', '₹${totalAmount.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}', isSmallScreen),
+          _buildSummaryRow('Subtotal', 'â‚¹${totalAmount.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}', isSmallScreen),
           const SizedBox(height: 8),
-          _buildSummaryRow('GST (5%)', '₹${gst.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}', isSmallScreen),
+          _buildSummaryRow('GST (5%)', 'â‚¹${gst.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}', isSmallScreen),
           const Divider(height: 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -244,7 +256,7 @@ class SubscriptionSummaryPage extends StatelessWidget {
                 ),
               ),
               Text(
-                '₹${finalAmount.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
+                'â‚¹${finalAmount.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
                 style: TextStyle(
                   fontSize: isSmallScreen ? 20 : 24,
                   fontWeight: FontWeight.bold,
@@ -300,4 +312,5 @@ class SubscriptionSummaryPage extends StatelessWidget {
     }
   }
 }
+
 

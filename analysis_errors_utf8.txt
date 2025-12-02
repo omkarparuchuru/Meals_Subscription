@@ -1,0 +1,213 @@
+﻿Resolving dependencies...
+Downloading packages...
+  characters 1.4.0 (1.4.1 available)
+  file_selector_linux 0.9.3+3 (0.9.4 available)
+  file_selector_macos 0.9.4+6 (0.9.5 available)
+  flutter_lints 3.0.2 (6.0.0 available)
+  flutter_plugin_android_lifecycle 2.0.32 (2.0.33 available)
+  image_picker_android 0.8.13+9 (0.8.13+10 available)
+  lints 3.0.0 (6.0.0 available)
+  matcher 0.12.17 (0.12.18 available)
+  material_color_utilities 0.11.1 (0.13.0 available)
+  meta 1.16.0 (1.17.0 available)
+  shared_preferences_android 2.4.16 (2.4.17 available)
+  test_api 0.7.6 (0.7.8 available)
+Got dependencies!
+12 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Analyzing final_meals...                                        
+
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was deprecated after v3.18.0-0.1.pre - lib\dashboard_page.dart:174:54 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\dashboard_page.dart:284:61 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\dashboard_page.dart:356:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\dashboard_page.dart:434:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\dashboard_page.dart:466:38 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\dashboard_page.dart:489:36 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\dashboard_page.dart:609:33 - deprecated_member_use
+   info - 'surfaceVariant' is deprecated and shouldn't be used. Use surfaceContainerHighest instead. This feature was deprecated after v3.18.0-0.1.pre - lib\dashboard_page.dart:661:46 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\dashboard_page.dart:669:32 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\dashboard_page.dart:704:38 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\dashboard_page.dart:818:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\dashboard_page.dart:830:30 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\dashboard_page.dart:890:17 - prefer_const_constructors
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\dashboard_page.dart:1011:35 - deprecated_member_use
+   info - Don't use 'BuildContext's across async gaps - lib\dashboard_page.dart:1238:7 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\dashboard_page.dart:1257:7 - use_build_context_synchronously
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was deprecated after v3.18.0-0.1.pre - lib\login_page.dart:89:54 - deprecated_member_use
+   info - 'onBackground' is deprecated and shouldn't be used. Use onSurface instead. This feature was deprecated after v3.18.0-0.1.pre - lib\login_page.dart:111:60 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\login_page.dart:170:33 - deprecated_member_use
+  error - A dot shorthand can't be used where there is no context type - lib\login_page.dart:189:50 - dot_shorthand_missing_context
+  error - This requires the 'dot-shorthands' language feature to be enabled - lib\login_page.dart:189:50 - experiment_not_enabled
+  error - Too many positional arguments: 0 expected, but 1 found - lib\login_page.dart:189:50 - extra_positional_arguments_could_be_named
+   info - 'surfaceVariant' is deprecated and shouldn't be used. Use surfaceContainerHighest instead. This feature was deprecated after v3.18.0-0.1.pre - lib\login_page.dart:195:52 - deprecated_member_use
+  error - Methods can't be invoked in constant expressions - lib\login_page.dart:213:26 - const_eval_method_invocation
+  error - A dot shorthand can't be used where there is no context type - lib\login_page.dart:230:80 - dot_shorthand_missing_context
+  error - This requires the 'dot-shorthands' language feature to be enabled - lib\login_page.dart:230:80 - experiment_not_enabled
+  error - Too many positional arguments: 0 expected, but 1 found - lib\login_page.dart:230:80 - extra_positional_arguments_could_be_named
+  error - Methods can't be invoked in constant expressions - lib\login_page.dart:257:29 - const_eval_method_invocation
+  error - A dot shorthand can't be used where there is no context type - lib\login_page.dart:274:59 - dot_shorthand_missing_context
+  error - This requires the 'dot-shorthands' language feature to be enabled - lib\login_page.dart:274:59 - experiment_not_enabled
+  error - Too many positional arguments: 0 expected, but 1 found - lib\login_page.dart:274:59 - extra_positional_arguments_could_be_named
+  error - The named parameter 'children' isn't defined - lib\login_page.dart:276:17 - undefined_named_parameter
+   info - Use 'const' with the constructor to improve performance - lib\login_page.dart:277:19 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\login_page.dart:286:19 - prefer_const_constructors
+  error - Expected to find ')' - lib\login_page.dart:299:9 - expected_token
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\login_page.dart:344:26 - deprecated_member_use
+warning - The declaration '_showTermsDialog' isn't referenced - lib\login_page.dart:366:8 - unused_element
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was deprecated after v3.18.0-0.1.pre - lib\main.dart:23:11 - deprecated_member_use
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was deprecated after v3.18.0-0.1.pre - lib\otp_page.dart:203:54 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\otp_page.dart:283:88 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\otp_page.dart:397:64 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\otp_page.dart:440:53 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\otp_page.dart:447:59 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\otp_page.dart:454:64 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\profile_page.dart:88:70 - deprecated_member_use
+  error - A dot shorthand can't be used where there is no context type - lib\profile_page.dart:119:79 - dot_shorthand_missing_context
+  error - This requires the 'dot-shorthands' language feature to be enabled - lib\profile_page.dart:119:79 - experiment_not_enabled
+  error - Too many positional arguments: 0 expected, but 1 found - lib\profile_page.dart:119:79 - extra_positional_arguments_could_be_named
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\profile_page.dart:176:70 - deprecated_member_use
+  error - A dot shorthand can't be used where there is no context type - lib\profile_page.dart:185:64 - dot_shorthand_missing_context
+  error - This requires the 'dot-shorthands' language feature to be enabled - lib\profile_page.dart:185:64 - experiment_not_enabled
+  error - Too many positional arguments: 0 expected, but 1 found - lib\profile_page.dart:185:64 - extra_positional_arguments_could_be_named
+   info - Don't use 'BuildContext's across async gaps - lib\profile_page.dart:235:30 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\profile_page.dart:251:28 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\profile_page.dart:316:9 - use_build_context_synchronously
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was deprecated after v3.18.0-0.1.pre - lib\profile_page.dart:338:54 - deprecated_member_use
+  error - Methods can't be invoked in constant expressions - lib\profile_page.dart:365:39 - const_eval_method_invocation
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\profile_page.dart:379:53 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\profile_page.dart:410:55 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\profile_page.dart:497:68 - deprecated_member_use
+  error - A dot shorthand can't be used where there is no context type - lib\profile_page.dart:510:75 - dot_shorthand_missing_context
+  error - This requires the 'dot-shorthands' language feature to be enabled - lib\profile_page.dart:510:75 - experiment_not_enabled
+  error - Too many positional arguments: 0 expected, but 1 found - lib\profile_page.dart:510:75 - extra_positional_arguments_could_be_named
+  error - A dot shorthand can't be used where there is no context type - lib\profile_page.dart:516:106 - dot_shorthand_missing_context
+  error - This requires the 'dot-shorthands' language feature to be enabled - lib\profile_page.dart:516:106 - experiment_not_enabled
+  error - Too many positional arguments: 0 expected, but 1 found - lib\profile_page.dart:516:106 - extra_positional_arguments_could_be_named
+  error - Methods can't be invoked in constant expressions - lib\profile_page.dart:531:41 - const_eval_method_invocation
+  error - Methods can't be invoked in constant expressions - lib\profile_page.dart:552:40 - const_eval_method_invocation
+  error - Methods can't be invoked in constant expressions - lib\profile_page.dart:589:35 - const_eval_method_invocation
+  error - A dot shorthand can't be used where there is no context type - lib\profile_page.dart:608:78 - dot_shorthand_missing_context
+  error - This requires the 'dot-shorthands' language feature to be enabled - lib\profile_page.dart:608:78 - experiment_not_enabled
+  error - Too many positional arguments: 0 expected, but 1 found - lib\profile_page.dart:608:78 - extra_positional_arguments_could_be_named
+   info - Use 'const' with the constructor to improve performance - lib\profile_page.dart:611:17 - prefer_const_constructors
+  error - Too many positional arguments: 0 expected, but 1 found - lib\profile_page.dart:611:17 - extra_positional_arguments_could_be_named
+  error - Expected to find ')' - lib\profile_page.dart:612:15 - expected_token
+   info - 'surfaceVariant' is deprecated and shouldn't be used. Use surfaceContainerHighest instead. This feature was deprecated after v3.18.0-0.1.pre - lib\profile_page.dart:645:50 - deprecated_member_use
+  error - The named parameter 'errorstyle' isn't defined - lib\profile_page.dart:672:15 - undefined_named_parameter
+   info - Use 'const' with the constructor to improve performance - lib\profile_page.dart:672:27 - prefer_const_constructors
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\customer\customer_page.dart:109:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\customer\customer_page.dart:120:30 - deprecated_member_use
+   info - The private field _defaultAddress could be 'final' - lib\screens\meals\manage_meals_page.dart:41:10 - prefer_final_fields
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\meals\manage_meals_page.dart:269:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\meals\manage_meals_page.dart:301:42 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\meals\manage_meals_page.dart:402:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\meals\manage_meals_page.dart:485:49 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\meals\manage_meals_page.dart:513:49 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\screens\meals\manage_meals_page.dart:531:25 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\meals\manage_meals_page.dart:549:25 - prefer_const_constructors
+   info - 'activeColor' is deprecated and shouldn't be used. Use activeThumbColor instead. This feature was deprecated after v3.31.0-2.0.pre - lib\screens\meals\manage_meals_page.dart:589:17 - deprecated_member_use
+warning - The declaration '_buildUpgradeBanner' isn't referenced - lib\screens\meals\weekly_menu_page.dart:103:10 - unused_element
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\meals\weekly_menu_page.dart:119:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\meals\weekly_menu_page.dart:146:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\meals\weekly_menu_page.dart:625:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\meals\weekly_menu_page.dart:725:44 - deprecated_member_use
+   info - Don't use 'BuildContext's across async gaps - lib\screens\meals\weekly_menu_page.dart:905:9 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\meals\weekly_menu_page.dart:928:23 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\screens\meals\weekly_menu_page.dart:944:30 - use_build_context_synchronously
+   info - Use 'const' for final variables initialized to a constant value - lib\screens\meals\weekly_menu_page.dart:984:5 - prefer_const_declarations
+   info - Use 'const' for final variables initialized to a constant value - lib\screens\meals\weekly_menu_page.dart:985:5 - prefer_const_declarations
+   info - Use 'const' for final variables initialized to a constant value - lib\screens\meals\weekly_menu_page.dart:986:5 - prefer_const_declarations
+   info - Use 'const' for final variables initialized to a constant value - lib\screens\meals\weekly_menu_page.dart:987:5 - prefer_const_declarations
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\meals\weekly_menu_page.dart:1113:44 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\orders\order_status_page.dart:248:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\orders\order_status_page.dart:262:36 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\orders\order_status_page.dart:294:38 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\payment\payment_page.dart:89:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\payment\payment_page.dart:213:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\payment\payment_page.dart:264:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\payment\payment_page.dart:309:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\payment\payment_page.dart:367:48 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\payment\payment_page.dart:404:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\payment\payment_page.dart:552:42 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\screens\payment\payment_page.dart:702:19 - prefer_const_constructors
+   info - Statements in an if should be enclosed in a block - lib\screens\payment\payment_page.dart:814:40 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\screens\payment\payment_page.dart:815:45 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\screens\payment\payment_page.dart:816:43 - curly_braces_in_flow_control_structures
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\payment\payment_page.dart:821:34 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\payment\payment_page.dart:838:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\payment\payment_page.dart:859:51 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\screens\payment\payment_page.dart:915:40 - prefer_const_constructors
+   info - Use 'const' literals as arguments to constructors of '@immutable' classes - lib\screens\payment\payment_page.dart:917:45 - prefer_const_literals_to_create_immutables
+   info - Use 'const' with the constructor to improve performance - lib\screens\payment\payment_page.dart:924:37 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\payment\payment_page.dart:926:46 - prefer_const_constructors
+   info - Don't use 'BuildContext's across async gaps - lib\screens\payment\payment_page.dart:979:51 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\payment\payment_page.dart:983:39 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\screens\profile\edit_profile_page.dart:70:28 - use_build_context_synchronously
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\profile\edit_profile_page.dart:226:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\profile\edit_profile_page.dart:261:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\settings\delivery_settings_page.dart:64:33 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\screens\settings\delivery_settings_page.dart:94:11 - prefer_const_constructors
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\settings\delivery_settings_page.dart:162:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\settings\subscription_details_page.dart:37:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\choose_subscription_page.dart:87:43 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\screens\subscription\choose_subscription_page.dart:211:23 - prefer_const_constructors
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\choose_subscription_page.dart:264:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\choose_subscription_page.dart:276:34 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\customize_dinner_page.dart:178:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\customize_dinner_page.dart:331:33 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\screens\subscription\customize_dinner_page.dart:342:15 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\subscription\customize_dinner_page.dart:394:23 - prefer_const_constructors
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\customize_dinner_page.dart:428:59 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\customize_dinner_page.dart:472:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\customize_dinner_page.dart:485:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\customize_dinner_page.dart:486:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\customize_dinner_page.dart:564:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\customize_dinner_page.dart:577:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\customize_dinner_page.dart:578:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\meal_customization_page.dart:133:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\meal_customization_page.dart:251:59 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\meal_customization_page.dart:293:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\meal_customization_page.dart:305:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\select_diet_page.dart:90:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\select_diet_page.dart:268:26 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\select_diet_page.dart:270:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\select_diet_page.dart:314:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\select_diet_page.dart:327:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\select_diet_page.dart:328:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\select_duration_page.dart:118:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\select_duration_page.dart:240:26 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\select_duration_page.dart:242:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\select_duration_page.dart:249:32 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\screens\subscription\select_duration_page.dart:304:23 - prefer_const_constructors
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\select_duration_page.dart:356:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\subscription_summary_page.dart:63:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\subscription\subscription_summary_page.dart:183:42 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\screens\upgrade\upgrade_meal_page.dart:116:15 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\upgrade\upgrade_meal_page.dart:117:24 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\upgrade\upgrade_meal_page.dart:118:26 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\upgrade\upgrade_meal_page.dart:120:28 - prefer_const_constructors
+   info - Use 'const' literals as arguments to constructors of '@immutable' classes - lib\screens\upgrade\upgrade_meal_page.dart:122:33 - prefer_const_literals_to_create_immutables
+   info - Use 'const' with the constructor to improve performance - lib\screens\upgrade\upgrade_meal_page.dart:123:25 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\upgrade\upgrade_meal_page.dart:129:25 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\upgrade\upgrade_meal_page.dart:131:34 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\upgrade\upgrade_meal_page.dart:138:25 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\upgrade\upgrade_meal_page.dart:141:34 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\upgrade\upgrade_meal_page.dart:232:20 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\upgrade\upgrade_meal_page.dart:241:20 - prefer_const_constructors
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\upgrade\upgrade_meal_page.dart:259:33 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\screens\upgrade\upgrade_meal_page.dart:270:15 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\screens\upgrade\upgrade_meal_page.dart:270:50 - prefer_const_constructors
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\upgrade\upgrade_meal_page.dart:290:50 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\upgrade\upgrade_meal_page.dart:330:61 - deprecated_member_use
+   info - Unnecessary use of 'toList' in a spread - lib\screens\upgrade\upgrade_meal_page.dart:378:12 - unnecessary_to_list_in_spreads
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\upgrade\upgrade_meal_page.dart:418:37 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\upgrade\upgrade_meal_page.dart:480:55 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\upgrade\upgrade_meal_page.dart:567:37 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\upgrade\upgrade_meal_page.dart:568:37 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\screens\upgrade\upgrade_meal_page.dart:572:59 - deprecated_member_use
+warning - The value of the local variable 'currentMeals' isn't used - lib\screens\upgrade\upgrade_meal_page.dart:716:13 - unused_local_variable
+warning - The value of the local variable 'currentMeals' isn't used - lib\screens\upgrade\upgrade_meal_page.dart:723:13 - unused_local_variable
+   info - The imported package 'final_meals' isn't a dependency of the importing package - test\widget_test.dart:11:8 - depend_on_referenced_packages
+  error - Target of URI doesn't exist: 'package:final_meals/main.dart' - test\widget_test.dart:11:8 - uri_does_not_exist
+  error - The name 'MyApp' isn't a class - test\widget_test.dart:16:35 - creation_with_non_type
+

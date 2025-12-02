@@ -175,7 +175,7 @@ class _CustomizeDinnerPageState extends State<CustomizeDinnerPage> {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: Colors.black.withValues(alpha: 0.05),
                       blurRadius: 10,
                       offset: const Offset(0, -2),
                     ),
@@ -328,7 +328,7 @@ class _CustomizeDinnerPageState extends State<CustomizeDinnerPage> {
         border: Border.all(color: const Color(0xFFE0E0E0)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -339,7 +339,7 @@ class _CustomizeDinnerPageState extends State<CustomizeDinnerPage> {
         children: [
           Row(
             children: [
-              Icon(Icons.info_outline, color: const Color(0xFF2196F3), size: 20),
+              const Icon(Icons.info_outline, color: Color(0xFF2196F3), size: 20),
               const SizedBox(width: 8),
               Text(
                 'Selected Plan',
@@ -391,8 +391,8 @@ class _CustomizeDinnerPageState extends State<CustomizeDinnerPage> {
         Container(
           width: isSmallScreen ? 28 : 32,
           height: isSmallScreen ? 28 : 32,
-          decoration: BoxDecoration(
-            color: const Color(0xFF9E9E9E),
+          decoration: const BoxDecoration(
+            color: Color(0xFF9E9E9E),
             shape: BoxShape.circle,
           ),
           child: Center(
@@ -425,7 +425,7 @@ class _CustomizeDinnerPageState extends State<CustomizeDinnerPage> {
       decoration: BoxDecoration(
         color: const Color(0xFFE3F2FD),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFF2196F3).withOpacity(0.3)),
+        border: Border.all(color: const Color(0xFF2196F3).withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
@@ -469,7 +469,7 @@ class _CustomizeDinnerPageState extends State<CustomizeDinnerPage> {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -482,8 +482,8 @@ class _CustomizeDinnerPageState extends State<CustomizeDinnerPage> {
               height: isSmallScreen ? 50 : 60,
               decoration: BoxDecoration(
                 color: isSelected
-                    ? const Color(0xFF4CAF50).withOpacity(0.1)
-                    : const Color(0xFFE0E0E0).withOpacity(0.3),
+                    ? const Color(0xFF4CAF50).withValues(alpha: 0.1)
+                    : const Color(0xFFE0E0E0).withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(
@@ -561,7 +561,7 @@ class _CustomizeDinnerPageState extends State<CustomizeDinnerPage> {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -574,8 +574,8 @@ class _CustomizeDinnerPageState extends State<CustomizeDinnerPage> {
               height: isSmallScreen ? 50 : 60,
               decoration: BoxDecoration(
                 color: isSelected
-                    ? const Color(0xFFFF9800).withOpacity(0.1)
-                    : const Color(0xFFE0E0E0).withOpacity(0.3),
+                    ? const Color(0xFFFF9800).withValues(alpha: 0.1)
+                    : const Color(0xFFE0E0E0).withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(
@@ -629,4 +629,5 @@ class _CustomizeDinnerPageState extends State<CustomizeDinnerPage> {
     );
   }
 }
+
 

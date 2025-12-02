@@ -115,7 +115,7 @@ class _SelectDurationPageState extends State<SelectDurationPage> {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: Colors.black.withValues(alpha: 0.05),
                       blurRadius: 10,
                       offset: const Offset(0, -2),
                     ),
@@ -237,16 +237,16 @@ class _SelectDurationPageState extends State<SelectDurationPage> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: dietColor.withOpacity(0.1),
+        color: dietColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: dietColor.withOpacity(0.3)),
+        border: Border.all(color: dietColor.withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: planColor.withOpacity(0.2),
+              color: planColor.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(
@@ -301,8 +301,8 @@ class _SelectDurationPageState extends State<SelectDurationPage> {
         Container(
           width: isSmallScreen ? 28 : 32,
           height: isSmallScreen ? 28 : 32,
-          decoration: BoxDecoration(
-            color: const Color(0xFF9E9E9E),
+          decoration: const BoxDecoration(
+            color: Color(0xFF9E9E9E),
             shape: BoxShape.circle,
           ),
           child: Center(
@@ -353,7 +353,7 @@ class _SelectDurationPageState extends State<SelectDurationPage> {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -385,7 +385,7 @@ class _SelectDurationPageState extends State<SelectDurationPage> {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  '₹${total.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
+                  'â‚¹${total.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
                   style: TextStyle(
                     fontSize: isSmallScreen ? 24 : 28,
                     fontWeight: FontWeight.bold,
@@ -394,7 +394,7 @@ class _SelectDurationPageState extends State<SelectDurationPage> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  '₹${perMonth.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}/month',
+                  'â‚¹${perMonth.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}/month',
                   style: TextStyle(
                     fontSize: isSmallScreen ? 14 : 16,
                     color: const Color(0xFF757575),
@@ -413,7 +413,7 @@ class _SelectDurationPageState extends State<SelectDurationPage> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
-                    'Save ₹${save.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
+                    'Save â‚¹${save.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 12,
@@ -428,4 +428,5 @@ class _SelectDurationPageState extends State<SelectDurationPage> {
     );
   }
 }
+
 

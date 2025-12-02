@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'otp_page.dart';
 
@@ -86,48 +86,51 @@ class _LoginPageState extends State<LoginPage> {
     final isSmallScreen = screenWidth < 360;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: isSmallScreen ? 16.0 : 24.0,
-            ),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  SizedBox(height: isSmallScreen ? 20 : 40),
-                  // Logo Section
-                  _buildLogo(isSmallScreen),
-                  SizedBox(height: isSmallScreen ? 16 : 24),
-                  // Welcome Text
-                  Text(
-                    'Welcome to Final Meals',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: isSmallScreen ? 24 : 28,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xFF2C2C2C),
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: isSmallScreen ? 16.0 : 24.0,
+              ),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    SizedBox(height: isSmallScreen ? 20 : 40),
+                    // Logo Section
+                    _buildLogo(isSmallScreen),
+                    SizedBox(height: isSmallScreen ? 16 : 24),
+                    // Welcome Text
+                    Text(
+                      'Welcome to Meal Destination',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: isSmallScreen ? 24 : 28,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Your daily meal subscription service',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: isSmallScreen ? 14 : 16,
-                      color: const Color(0xFF757575),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Your daily meal subscription service',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: isSmallScreen ? 14 : 16,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: isSmallScreen ? 24 : 40),
-                  // Login Card
-                  _buildLoginCard(isSmallScreen),
-                  SizedBox(height: isSmallScreen ? 40 : 60),
-                  // Features Section
-                  _buildFeaturesSection(isSmallScreen),
-                  SizedBox(height: isSmallScreen ? 20 : 40),
-                ],
+                    SizedBox(height: isSmallScreen ? 24 : 40),
+                    // Login Card
+                    _buildLoginCard(isSmallScreen),
+                    SizedBox(height: isSmallScreen ? 40 : 60),
+                    // Features Section
+                    _buildFeaturesSection(isSmallScreen),
+                    SizedBox(height: isSmallScreen ? 20 : 40),
+                  ],
+                ),
               ),
             ),
           ),
@@ -142,19 +145,19 @@ class _LoginPageState extends State<LoginPage> {
       height: isSmallScreen ? 70 : 80,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
           colors: [
-            Color(0xFFFF9800), // Orange
-            Color(0xFF4CAF50), // Green
+            Theme.of(context).colorScheme.primary,
+            Theme.of(context).colorScheme.secondary,
           ],
         ),
       ),
       child: const Icon(
         Icons.restaurant,
         size: 40,
-        color: Color(0xFF9C27B0), // Purple
+        color: Colors.white,
       ),
     );
   }
@@ -167,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 20,
             offset: const Offset(0, 4),
           ),
@@ -181,26 +184,24 @@ class _LoginPageState extends State<LoginPage> {
             style: TextStyle(
               fontSize: isSmallScreen ? 20 : 22,
               fontWeight: FontWeight.bold,
-              color: const Color(0xFF2C2C2C),
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
           const SizedBox(height: 24),
           // Mobile Number Input
-          const Text(
+          Text(
             'Mobile Number',
             style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              color: Color(0xFF2C2C2C),
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
           const SizedBox(height: 8),
           Container(
             decoration: BoxDecoration(
-              color: const Color(0xFFF5F5F5),
+              color: Theme.of(context).colorScheme.surfaceContainerHighest,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: const Color(0xFFE0E0E0),
+                color: Theme.of(context).dividerColor,
                 width: 1,
               ),
             ),
@@ -212,31 +213,30 @@ class _LoginPageState extends State<LoginPage> {
                 LengthLimitingTextInputFormatter(10),
               ],
               validator: _validateMobileNumber,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.phone,
-                  color: Color(0xFF9E9E9E),
+                  color: Theme.of(context).hintColor,
                 ),
                 hintText: 'Enter 10-digit mobile number',
                 hintStyle: TextStyle(
-                  color: Color(0xFF9E9E9E),
+                  color: Theme.of(context).hintColor,
                   fontSize: 16,
                 ),
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(
+                contentPadding: const EdgeInsets.symmetric(
                   horizontal: 16,
                   vertical: 16,
                 ),
-                errorStyle: TextStyle(fontSize: 12),
+                errorStyle: const TextStyle(fontSize: 12),
               ),
             ),
           ),
           const SizedBox(height: 12),
-          const Text(
+          Text(
             "We'll send you an OTP to verify your number",
             style: TextStyle(
-              fontSize: 13,
-              color: Color(0xFF9E9E9E),
+              color: Theme.of(context).hintColor,
             ),
           ),
           const SizedBox(height: 24),
@@ -259,12 +259,12 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: BoxDecoration(
                   gradient: _isLoading
                       ? null
-                      : const LinearGradient(
+                      : LinearGradient(
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
                           colors: [
-                            Color(0xFFFF9800), // Orange
-                            Color(0xFF4CAF50), // Green
+                            Theme.of(context).colorScheme.primary,
+                            Theme.of(context).colorScheme.secondary,
                           ],
                         ),
                   borderRadius: BorderRadius.circular(12),
@@ -280,12 +280,11 @@ class _LoginPageState extends State<LoginPage> {
                             valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                           ),
                         )
-                      : const Text(
+                      : Text(
                           'Send OTP',
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context).colorScheme.onPrimary,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                 ),
@@ -293,39 +292,34 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           const SizedBox(height: 16),
-          // Terms and Privacy Policy
-          GestureDetector(
-            onTap: () {
-              _showTermsDialog();
-            },
-            child: RichText(
-              textAlign: TextAlign.center,
-              text: const TextSpan(
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF9E9E9E),
-                ),
-                children: [
-                  TextSpan(text: 'By continuing, you agree to our '),
-                  TextSpan(
-                    text: 'Terms of Service',
-                    style: TextStyle(
-                      color: Color(0xFF2C2C2C),
-                      fontWeight: FontWeight.w500,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                  TextSpan(text: ' and '),
-                  TextSpan(
-                    text: 'Privacy Policy',
-                    style: TextStyle(
-                      color: Color(0xFF2C2C2C),
-                      fontWeight: FontWeight.w500,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ],
+          // Terms and Privacy
+          RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              style: TextStyle(
+                color: Theme.of(context).hintColor,
+                fontSize: 12,
               ),
+              children: [
+                const TextSpan(text: 'By continuing, you agree to our '),
+                TextSpan(
+                  text: 'Terms of Service',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontWeight: FontWeight.w500,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+                const TextSpan(text: ' and '),
+                TextSpan(
+                  text: 'Privacy Policy',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontWeight: FontWeight.w500,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -342,19 +336,19 @@ class _LoginPageState extends State<LoginPage> {
         _buildFeatureItem(
           icon: Icons.restaurant_menu,
           label: 'Fresh Meals',
-          color: const Color(0xFF4CAF50),
+          color: Theme.of(context).colorScheme.primary,
           isSmallScreen: isSmallScreen,
         ),
         _buildFeatureItem(
           icon: Icons.access_time,
           label: 'On Time',
-          color: const Color(0xFFE91E63),
+          color: Theme.of(context).colorScheme.error,
           isSmallScreen: isSmallScreen,
         ),
         _buildFeatureItem(
           icon: Icons.account_balance_wallet,
           label: 'Affordable',
-          color: const Color(0xFFFFC107),
+          color: Theme.of(context).colorScheme.secondary,
           isSmallScreen: isSmallScreen,
         ),
       ],
@@ -373,7 +367,7 @@ class _LoginPageState extends State<LoginPage> {
           width: isSmallScreen ? 50 : 60,
           height: isSmallScreen ? 50 : 60,
           decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
+            color: color.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Icon(
@@ -388,7 +382,7 @@ class _LoginPageState extends State<LoginPage> {
           style: TextStyle(
             fontSize: isSmallScreen ? 12 : 14,
             fontWeight: FontWeight.w500,
-            color: const Color(0xFF2C2C2C),
+            color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
       ],
@@ -402,7 +396,7 @@ class _LoginPageState extends State<LoginPage> {
         title: const Text('Terms of Service & Privacy Policy'),
         content: const SingleChildScrollView(
           child: Text(
-            'By using Final Meals, you agree to our Terms of Service and Privacy Policy. '
+            'By using Meal Destination, you agree to our Terms of Service and Privacy Policy. '
             'We collect your mobile number and address information to provide meal delivery services. '
             'Your data is secure and will not be shared with third parties.',
           ),
@@ -417,4 +411,5 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
 

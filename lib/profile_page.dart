@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
@@ -85,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       width: 80,
                       height: 80,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF2196F3).withOpacity(0.1),
+                        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
                         shape: BoxShape.circle,
                       ),
                       child: Stack(
@@ -100,7 +100,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           Icon(
                             Icons.location_on,
-                            color: const Color(0xFF2196F3),
+                            color: Theme.of(context).colorScheme.primary,
                             size: 30 * value,
                           ),
                         ],
@@ -116,12 +116,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 builder: (context, value, child) {
                   return Opacity(
                     opacity: value,
-                    child: const Text(
+                    child: Text(
                       'Fetching your location...',
                       style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF2C2C2C),
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                   );
@@ -178,30 +176,19 @@ class _ProfilePageState extends State<ProfilePage> {
                       width: 80,
                       height: 80,
                       decoration: BoxDecoration(
-                        color: Colors.green.withOpacity(0.1),
+                        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(
-                        Icons.check_circle,
-                        color: Colors.green,
+                      child: Icon(
+                        Icons.check_circle, color: Theme.of(context).colorScheme.primary,
                         size: 50,
                       ),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
+                    Text(
                       'Location Fetched!',
                       style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF2C2C2C),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    const Text(
-                      'Address has been auto-filled',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Color(0xFF757575),
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ],
@@ -354,7 +341,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final isSmallScreen = screenWidth < 360;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFAFAFA),
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -377,11 +364,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             gradient: _profileImage == null
-                                ? const LinearGradient(
+                                ? LinearGradient(
                                     begin: Alignment.centerLeft,
                                     end: Alignment.centerRight,
                                     colors: [
-                                      Color(0xFF2196F3), // Blue
+                                      Theme.of(context).colorScheme.primary, // Blue
                                       Color(0xFF9C27B0), // Purple
                                     ],
                                   )
@@ -395,7 +382,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 : null,
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
+                                color: Colors.black.withValues(alpha: 0.1),
                                 blurRadius: 10,
                                 offset: const Offset(0, 4),
                               ),
@@ -418,7 +405,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: Container(
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                              color: const Color(0xFF4CAF50),
+                              color: Theme.of(context).colorScheme.primary,
                               shape: BoxShape.circle,
                               border: Border.all(
                                 color: Colors.white,
@@ -426,7 +413,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
+                                  color: Colors.black.withValues(alpha: 0.2),
                                   blurRadius: 5,
                                   offset: const Offset(0, 2),
                                 ),
@@ -462,7 +449,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     style: TextStyle(
                       fontSize: isSmallScreen ? 20 : 24,
                       fontWeight: FontWeight.bold,
-                      color: const Color(0xFF2C2C2C),
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -471,7 +458,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: isSmallScreen ? 14 : 16,
-                      color: const Color(0xFF757575),
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
                   ),
                   SizedBox(height: isSmallScreen ? 24 : 40),
@@ -513,7 +500,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFE3F2FD),
+                      color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Column(
@@ -521,28 +508,24 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         Row(
                           children: [
-                            const Icon(
-                              Icons.send,
-                              color: Color(0xFF1976D2),
+                            Icon(
+                              Icons.send, color: Theme.of(context).colorScheme.primary,
                               size: 20,
                             ),
                             const SizedBox(width: 8),
-                            const Text(
+                            Text(
                               'Use Current Location',
                               style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF1976D2),
+                                color: Theme.of(context).colorScheme.primary,
                               ),
                             ),
                           ],
                         ),
                         const SizedBox(height: 8),
-                        const Text(
+                        Text(
                           'Allow us to access your location for accurate delivery.',
                           style: TextStyle(
-                            fontSize: 14,
-                            color: Color(0xFF2C2C2C),
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -551,35 +534,34 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: OutlinedButton.icon(
                             onPressed: _isGettingLocation ? null : _getCurrentLocation,
                             icon: _isGettingLocation
-                                ? const SizedBox(
+                                ? SizedBox(
                                     width: 18,
                                     height: 18,
                                     child: CircularProgressIndicator(
                                       strokeWidth: 2,
                                       valueColor: AlwaysStoppedAnimation<Color>(
-                                        Color(0xFF1976D2),
+                                        Theme.of(context).colorScheme.primary,
                                       ),
                                     ),
                                   )
-                                : const Icon(
-                                    Icons.send,
-                                    color: Color(0xFF1976D2),
+                                : Icon(
+                                    Icons.send, color: Theme.of(context).colorScheme.primary,
                                     size: 18,
                                   ),
                             label: Text(
                               _isGettingLocation
                                   ? 'Getting Location...'
                                   : 'Get Current Location',
-                              style: const TextStyle(
-                                color: Color(0xFF1976D2),
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                             style: OutlinedButton.styleFrom(
                               backgroundColor: Colors.white,
-                              side: const BorderSide(
-                                color: Color(0xFF1976D2),
+                              side: BorderSide(
+                                color: Theme.of(context).colorScheme.primary,
                                 width: 1.5,
                               ),
                               shape: RoundedRectangleBorder(
@@ -612,54 +594,42 @@ class _ProfilePageState extends State<ProfilePage> {
                       decoration: BoxDecoration(
                         gradient: _isLoading
                             ? null
-                            : const LinearGradient(
+                            : LinearGradient(
                                 begin: Alignment.centerLeft,
                                 end: Alignment.centerRight,
                                 colors: [
-                                  Color(0xFF2196F3), // Blue
+                                  Theme.of(context).colorScheme.primary, // Blue
                                   Color(0xFF9C27B0), // Purple
                                 ],
                               ),
                         borderRadius: BorderRadius.circular(12),
                         color: _isLoading ? Colors.grey : null,
                       ),
-                      child: Center(
-                        child: _isLoading
-                            ? const SizedBox(
-                                width: 20,
-                                height: 20,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    Colors.white,
+                        child: Center(
+                          child: _isLoading
+                              ? const SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white,
+                                    ),
+                                  ),
+                                )
+                              : Text(
+                                  'Complete Registration',
+                                  style: TextStyle(
+                                    color: Theme.of(context).colorScheme.onPrimary,
                                   ),
                                 ),
-                              )
-                            : const Text(
-                                'Complete Registration',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 16),
-                // Informational Text
-                const Text(
-                  'This information helps us deliver your meals accurately',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Color(0xFF9E9E9E),
-                  ),
-                ),
-                SizedBox(height: 40),
-              ],
-            ),
+                  const SizedBox(height: 40),
+                ],
+              ),
             ),
           ),
         ),
@@ -691,10 +661,10 @@ class _ProfilePageState extends State<ProfilePage> {
         const SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
-            color: const Color(0xFFF5F5F5),
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: const Color(0xFFE0E0E0),
+              color: Theme.of(context).dividerColor,
               width: 1,
             ),
           ),
@@ -705,12 +675,12 @@ class _ProfilePageState extends State<ProfilePage> {
             decoration: InputDecoration(
               prefixIcon: Icon(
                 icon,
-                color: const Color(0xFF2C2C2C),
+                color: Theme.of(context).colorScheme.onSurface,
                 size: 20,
               ),
               hintText: placeholder,
               hintStyle: TextStyle(
-                color: const Color(0xFF9E9E9E),
+                color: Theme.of(context).hintColor,
                 fontSize: isSmallScreen ? 14 : 16,
               ),
               border: InputBorder.none,
@@ -726,4 +696,5 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
+
 
