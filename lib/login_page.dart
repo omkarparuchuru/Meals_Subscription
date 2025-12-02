@@ -389,27 +389,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _showTermsDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Terms of Service & Privacy Policy'),
-        content: const SingleChildScrollView(
-          child: Text(
-            'By using Meal Destination, you agree to our Terms of Service and Privacy Policy. '
-            'We collect your mobile number and address information to provide meal delivery services. '
-            'Your data is secure and will not be shared with third parties.',
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('I Understand'),
-          ),
-        ],
-      ),
-    );
-  }
 }
 
 

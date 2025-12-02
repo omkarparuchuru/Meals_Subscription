@@ -122,66 +122,6 @@ class _WeeklyMenuPageState extends State<WeeklyMenuPage> {
     );
   }
   
-  Widget _buildUpgradeBanner(bool isSmallScreen) {
-    return Container(
-      margin: EdgeInsets.all(isSmallScreen ? 16 : 24),
-      padding: EdgeInsets.all(isSmallScreen ? 16 : 20),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          colors: [
-            Color(0xFFFF9800),
-            Color(0xFF4CAF50),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          const Icon(Icons.upgrade, color: Colors.white, size: 28),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Upgrade to Non-Vegetarian',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Enjoy premium non-veg meals. Upgrade for a day, week, or specific meal.',
-                  style: TextStyle(
-                    fontSize: isSmallScreen ? 13 : 14,
-                    color: Colors.white.withValues(alpha: 0.9),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.close, color: Colors.white),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildHeader(bool isSmallScreen, BuildContext context) {
     return Container(
       width: double.infinity,

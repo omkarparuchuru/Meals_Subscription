@@ -824,12 +824,6 @@ class _PaymentPageState extends State<PaymentPage> {
   }
   
   void _showPaymentSuccessAnimation(BuildContext context) {
-    // Calculate days based on duration
-    int days = 30; // Default 1 month
-    if (widget.duration == '3 Months') {
-      days = 90;
-    } else if (widget.duration == '6 Months') days = 180;
-    else if (widget.duration == '1 Year') days = 365;
     
     showDialog(
       context: context,
@@ -986,6 +980,11 @@ class _PaymentPageState extends State<PaymentPage> {
                                   // Save selected meals
                                   await prefs.setStringList('selectedMeals', widget.selectedMeals);
                                   
+                                  // Save subscription data
+                                  await prefs.setString('planType', widget.planType);
+                                  await prefs.setString('dietType', widget.dietType);
+                                  await prefs.setString('duration', widget.duration);
+                                  
                                   // Check if this is an upgrade payment
                                   final isUpgrade = widget.duration == 'Upgrade';
                                   
@@ -993,6 +992,16 @@ class _PaymentPageState extends State<PaymentPage> {
                                     // Return true to indicate successful upgrade payment
                                     Navigator.pop(context, true);
                                   } else {
+                                    // Calculate days based on duration
+                                    int days = 30;
+                                    if (widget.duration == '3 Months') {
+                                      days = 90;
+                                    } else if (widget.duration == '6 Months') {
+                                      days = 180;
+                                    } else if (widget.duration == '1 Year') {
+                                      days = 365;
+                                    }
+                                    
                                     // Navigate to dashboard with subscription data
                                     Navigator.pushAndRemoveUntil(
                                       context,
@@ -1002,6 +1011,16 @@ class _PaymentPageState extends State<PaymentPage> {
                                           mobileNumber: mobileNumber,
                                           address: address,
                                           landmark: landmark,
+                                        ),
+                                        settings: RouteSettings(
+                                          arguments: {
+                                            'planType': widget.planType,
+                                            'dietType': widget.dietType,
+                                            'duration': widget.duration,
+                                            'days': days,
+                                            'selectedMeals': widget.selectedMeals,
+                                            'dinnerCustomization': widget.dinnerCustomization,
+                                          },
                                         ),
                                       ),
                                       (route) => false,
