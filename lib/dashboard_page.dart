@@ -132,6 +132,11 @@ class _DashboardPageState extends State<DashboardPage> {
         final dinnerCurry = prefs.getString('dinnerCurry');
         final storedMeals = prefs.getStringList('selectedMeals');
         
+        // Load subscription data from SharedPreferences
+        final storedPlanType = prefs.getString('planType');
+        final storedDietType = prefs.getString('dietType');
+        final storedDuration = prefs.getString('duration');
+        
         setState(() {
           _storedUserName = storedName ?? widget.userName;
           _storedProfileImagePath = storedImage ?? widget.profileImagePath;
@@ -144,6 +149,29 @@ class _DashboardPageState extends State<DashboardPage> {
             _selectedMeals = storedMeals;
           }
         });
+        
+        // If subscription data exists, activate subscription view
+        if (storedPlanType != null && storedDietType != null && storedDuration != null) {
+          int days = 30; // Default
+          if (storedDuration == '3 Months') {
+            days = 90;
+          } else if (storedDuration == '6 Months') {
+            days = 180;
+          } else if (storedDuration == '1 Year') {
+            days = 365;
+          } else if (storedDuration == '1 Week') {
+            days = 7;
+          } else if (storedDuration == '1 Day') {
+            days = 1;
+          }
+          
+          _updateSubscriptionData(
+            planType: storedPlanType,
+            dietType: storedDietType,
+            duration: storedDuration,
+            days: days,
+          );
+        }
       }
     });
   }
